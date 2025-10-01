@@ -11,7 +11,7 @@ type RegisterFormValue = {
   password: string;
   fullName: string;
   gender: string;
-  dateOfBirth: Date | string | null;
+  dateOfBirth: Date | null;
 };
 
 @Component({
@@ -23,12 +23,12 @@ export class RegisterComponent {
   loading = false;
 
   readonly form = this.fb.group({
-    username: ['', [Validators.required, Validators.minLength(3)]],
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
-    fullName: ['', [Validators.required]],
-    gender: [''],
-    dateOfBirth: [null, [Validators.required]]
+    username: this.fb.control('', { validators: [Validators.required, Validators.minLength(3)], nonNullable: true }),
+    email: this.fb.control('', { validators: [Validators.required, Validators.email], nonNullable: true }),
+    password: this.fb.control('', { validators: [Validators.required, Validators.minLength(8)], nonNullable: true }),
+    fullName: this.fb.control('', { validators: [Validators.required], nonNullable: true }),
+    gender: this.fb.control('', { nonNullable: true }),
+    dateOfBirth: this.fb.control<Date | null>(null, { validators: [Validators.required] })
   });
 
   constructor(
@@ -68,10 +68,14 @@ export class RegisterComponent {
   }
 
   private toDateString(date: Date | string | null): string {
+    if (!date) {
+      return '';
+    }
+
     if (date instanceof Date) {
       return date.toISOString().split('T')[0];
     }
 
-    return date ?? '';
+    return date;
   }
 }
