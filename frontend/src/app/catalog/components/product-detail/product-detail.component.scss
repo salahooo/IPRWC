@@ -1,0 +1,42 @@
+.detail {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  align-items: start;
+}
+
+.detail img {
+  width: 100%;
+  border-radius: 1rem;
+  object-fit: cover;
+  max-height: 520px;
+}
+
+.info {
+  display: grid;
+  gap: 1rem;
+}
+
+.badge {
+  display: inline-flex;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 112, 67, 0.15);
+  color: #ff7043;
+  font-weight: 500;
+}
+
+.price {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.quantity {
+  max-width: 120px;
+}

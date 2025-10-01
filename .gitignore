@@ -1,0 +1,15 @@
+# Backend
+backend/target/
+backend/.idea/
+backend/.mvn/
+backend/mvnw*
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/cache/
+
+# General
+.DS_Store
+.idea/
+*.log

@@ -1,0 +1,68 @@
+.admin {
+  padding: 2rem 0;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+table img {
+  width: 64px;
+  height: 64px;
+  border-radius: 0.75rem;
+  object-fit: cover;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-info .sku {
+  color: #94a3b8;
+  font-size: 0.8rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.orders {
+  margin-bottom: 1.5rem;
+}
+
+.order-items {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.order-items .item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.order-items img {
+  width: 64px;
+  height: 64px;
+  border-radius: 0.75rem;
+  object-fit: cover;
+}
+
+.order-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.status {
+  min-width: 180px;
+}

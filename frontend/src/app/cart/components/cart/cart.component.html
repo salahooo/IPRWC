@@ -1,0 +1,60 @@
+<section class="cart">
+  <mat-card class="cart-table">
+    <mat-card-title>Your cart</mat-card-title>
+    <mat-card-content>
+      <table mat-table [dataSource]="items" class="mat-elevation-z2">
+        <ng-container matColumnDef="product">
+          <th mat-header-cell *matHeaderCellDef>Product</th>
+          <td mat-cell *matCellDef="let item">
+            <div class="product-cell">
+              <img [src]="item.product.imageUrl" [alt]="item.product.name">
+              <div>
+                <h4>{{ item.product.name }}</h4>
+                <p>€ {{ item.product.price | number:'1.2-2' }}</p>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef>Qty</th>
+          <td mat-cell *matCellDef="let item">
+            <input type="number" min="1" [max]="item.product.stock" [ngModel]="item.quantity"
+                   (ngModelChange)="updateQuantity(item, $event)">
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="total">
+          <th mat-header-cell *matHeaderCellDef>Total</th>
+          <td mat-cell *matCellDef="let item">€ {{ (item.product.price * item.quantity) | number:'1.2-2' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let item">
+            <button mat-icon-button color="warn" (click)="remove(item)"><mat-icon>delete</mat-icon></button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['product', 'quantity', 'total', 'actions']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['product', 'quantity', 'total', 'actions'];"></tr>
+      </table>
+      <p *ngIf="!items.length" class="empty">Your cart is empty.</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="summary">
+    <mat-card-title>Summary</mat-card-title>
+    <mat-card-content>
+      <div class="totals">
+        <div><span>Subtotal</span><span>€ {{ totals.subtotal | number:'1.2-2' }}</span></div>
+        <div><span>Estimated tax (21%)</span><span>€ {{ totals.tax | number:'1.2-2' }}</span></div>
+        <div class="total"><span>Total</span><span>€ {{ totals.total | number:'1.2-2' }}</span></div>
+      </div>
+      <button mat-raised-button color="accent" class="w-full mt-4" [disabled]="!items.length" (click)="checkout()">
+        Checkout
+      </button>
+      <p class="note">Tax calculation simplified for demo purposes.</p>
+    </mat-card-content>
+  </mat-card>
+</section>

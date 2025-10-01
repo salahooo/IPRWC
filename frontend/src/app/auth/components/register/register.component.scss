@@ -1,0 +1,19 @@
+.auth-card {
+  display: flex;
+  justify-content: center;
+  padding: 4rem 1.5rem;
+}
+
+mat-card {
+  max-width: 520px;
+  width: 100%;
+}
+
+.form-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+mat-progress-spinner {
+  margin-right: 0.5rem;
+}

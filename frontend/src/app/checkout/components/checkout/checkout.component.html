@@ -1,0 +1,42 @@
+<section class="checkout">
+  <mat-card>
+    <mat-card-title>Order summary</mat-card-title>
+    <mat-card-content>
+      <table class="summary-table">
+        <thead>
+        <tr>
+          <th>Product</th>
+          <th>Qty</th>
+          <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of cartService.getItems()">
+          <td>{{ item.product.name }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>€ {{ (item.product.price * item.quantity) | number:'1.2-2' }}</td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="totals">
+        <div><span>Subtotal</span><span>€ {{ cartService.totals().subtotal | number:'1.2-2' }}</span></div>
+        <div><span>Tax (21%)</span><span>€ {{ cartService.totals().tax | number:'1.2-2' }}</span></div>
+        <div class="total"><span>Total</span><span>€ {{ cartService.totals().total | number:'1.2-2' }}</span></div>
+      </div>
+      <button mat-raised-button color="accent" class="w-full mt-4" [disabled]="placingOrder || !cartService.getItems().length"
+              (click)="placeOrder()">
+        <mat-progress-spinner *ngIf="placingOrder" diameter="20" mode="indeterminate"></mat-progress-spinner>
+        <span *ngIf="!placingOrder">Place order</span>
+      </button>
+      <p class="note">All purchases are processed securely with cash on delivery simulation.</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="successOrderId" class="success">
+    <mat-card-title>Success!</mat-card-title>
+    <mat-card-content>
+      <p>Your order #{{ successOrderId }} is now pending. Track it from your profile.</p>
+      <button mat-stroked-button color="primary" (click)="viewOrders()">View my orders</button>
+    </mat-card-content>
+  </mat-card>
+</section>
