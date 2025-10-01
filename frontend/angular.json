@@ -102,5 +102,8 @@
       }
     }
   },
-  "defaultProject": "fatbike-frontend"
+  "defaultProject": "fatbike-frontend",
+  "cli": {
+    "analytics": "5bd7f217-e08e-4b6f-b6ae-9553cfa6c951"
+  }
 }
