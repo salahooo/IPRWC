@@ -1,0 +1,26 @@
+<ng-container *ngIf="product$ | async as product; else loading">
+  <div class="detail">
+    <img [src]="product.imageUrl" [alt]="product.name">
+    <div class="info">
+      <span class="badge">{{ category(product) }}</span>
+      <h1>{{ product.name }}</h1>
+      <p class="sku">SKU: {{ product.sku }}</p>
+      <p class="description">{{ product.description }}</p>
+      <p class="price">€ {{ product.price | number:'1.2-2' }}</p>
+      <p class="stock">Stock: {{ product.stock }}</p>
+      <div class="actions">
+        <mat-form-field appearance="outline" class="quantity">
+          <mat-label>Quantity</mat-label>
+          <input matInput type="number" [(ngModel)]="quantity" min="1" [max]="product.stock">
+        </mat-form-field>
+        <button mat-raised-button color="accent" (click)="addToCart(product)">Add to cart</button>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <div class="flex justify-center py-12">
+    <mat-progress-spinner diameter="48" mode="indeterminate"></mat-progress-spinner>
+  </div>
+</ng-template>

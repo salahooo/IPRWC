@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f8fafc;
+  color: #1f2937;
+}
+
+.mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: #1f2937;
+  --mdc-snackbar-supporting-text-color: #fff;
+}
+
+.material-theme {
+  --mat-primary: #ff7043;
+}

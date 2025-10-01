@@ -1,0 +1,104 @@
+<section class="admin">
+  <mat-card>
+    <mat-card-title>Admin dashboard</mat-card-title>
+    <mat-card-content>
+      <mat-tab-group>
+        <mat-tab label="Products">
+          <div class="toolbar">
+            <mat-form-field appearance="outline">
+              <mat-label>Search</mat-label>
+              <input matInput [formControl]="productSearch" placeholder="Search products">
+            </mat-form-field>
+            <button mat-raised-button color="accent" (click)="openProductDialog()">Add product</button>
+          </div>
+          <table mat-table [dataSource]="filteredProducts" class="mat-elevation-z2">
+            <ng-container matColumnDef="image">
+              <th mat-header-cell *matHeaderCellDef>Image</th>
+              <td mat-cell *matCellDef="let product"><img [src]="product.imageUrl" [alt]="product.name"></td>
+            </ng-container>
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Name</th>
+              <td mat-cell *matCellDef="let product">
+                <div class="product-info">
+                  <span class="title">{{ product.name }}</span>
+                  <span class="sku">{{ product.sku }}</span>
+                </div>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef>Price</th>
+              <td mat-cell *matCellDef="let product">€ {{ product.price | number:'1.2-2' }}</td>
+            </ng-container>
+            <ng-container matColumnDef="stock">
+              <th mat-header-cell *matHeaderCellDef>Stock</th>
+              <td mat-cell *matCellDef="let product">{{ product.stock }}</td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let product" class="actions">
+                <button mat-icon-button color="primary" (click)="openProductDialog(product)"><mat-icon>edit</mat-icon></button>
+                <button mat-icon-button color="warn" (click)="deleteProduct(product)"><mat-icon>delete</mat-icon></button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="['image','name','price','stock','actions']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['image','name','price','stock','actions'];"></tr>
+          </table>
+        </mat-tab>
+        <mat-tab label="Orders">
+          <div class="orders" *ngFor="let order of orders">
+            <mat-card>
+              <mat-card-title>Order #{{ order.id }}</mat-card-title>
+              <mat-card-subtitle>{{ order.userFullName }} • {{ order.userEmail }} • {{ order.createdAt | date:'medium' }}</mat-card-subtitle>
+              <mat-card-content>
+                <div class="order-items">
+                  <div class="item" *ngFor="let item of order.items">
+                    <img [src]="item.imageUrl" [alt]="item.productName">
+                    <div>
+                      <h4>{{ item.productName }}</h4>
+                      <p>Qty {{ item.quantity }} • € {{ item.priceAtPurchase | number:'1.2-2' }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="order-footer">
+                  <span>Total: € {{ order.totalPrice | number:'1.2-2' }}</span>
+                  <mat-form-field appearance="outline" class="status">
+                    <mat-label>Status</mat-label>
+                    <mat-select [value]="order.status" (selectionChange)="updateStatus(order, $event.value)">
+                      <mat-option *ngFor="let status of statusOptions" [value]="status">{{ status }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </mat-tab>
+        <mat-tab label="Users">
+          <table mat-table [dataSource]="users" class="mat-elevation-z2">
+            <ng-container matColumnDef="username">
+              <th mat-header-cell *matHeaderCellDef>Username</th>
+              <td mat-cell *matCellDef="let user">{{ user.username }}</td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef>Email</th>
+              <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+            </ng-container>
+            <ng-container matColumnDef="roles">
+              <th mat-header-cell *matHeaderCellDef>Roles</th>
+              <td mat-cell *matCellDef="let user">{{ user.roles.join(', ') }}</td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let user">
+                <button mat-icon-button color="warn" (click)="deleteUser(user)" [disabled]="user.roles.includes('ROLE_ADMIN')">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="['username','email','roles','actions']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['username','email','roles','actions'];"></tr>
+          </table>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</section>

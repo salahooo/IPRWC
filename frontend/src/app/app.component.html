@@ -1,0 +1,20 @@
+<mat-sidenav-container class="app-container" autosize>
+  <mat-sidenav #drawer mode="over" [(opened)]="sidenavOpened" (closedStart)="closeSidenav()">
+    <nav class="mobile-nav">
+      <a mat-list-item routerLink="/" (click)="closeSidenav()">Home</a>
+      <a mat-list-item routerLink="/catalog" (click)="closeSidenav()">Catalog</a>
+      <a mat-list-item routerLink="/cart" (click)="closeSidenav()">Cart</a>
+      <a mat-list-item routerLink="/profile" (click)="closeSidenav()">Profile</a>
+      <a mat-list-item routerLink="/admin" (click)="closeSidenav()">Admin</a>
+    </nav>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-navbar (toggleSidenav)="toggleSidenav()"></app-navbar>
+    <main class="min-h-screen">
+      <router-outlet></router-outlet>
+    </main>
+    <footer class="bg-slate-900 text-white py-6 text-center">
+      <p class="text-sm">© {{ currentYear }} Fatbike Shop. Ride beyond.</p>
+    </footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

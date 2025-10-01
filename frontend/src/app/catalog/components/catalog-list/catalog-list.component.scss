@@ -1,0 +1,54 @@
+.filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.product-card {
+  background: #fff;
+  border-radius: 1rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.product-card img {
+  height: 220px;
+  object-fit: cover;
+}
+
+.content {
+  padding: 1.5rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.description {
+  color: #64748b;
+  font-size: 0.9rem;
+  max-height: 72px;
+  overflow: hidden;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.stock.low-stock {
+  color: #f97316;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
