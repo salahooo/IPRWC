@@ -1,0 +1,29 @@
+<section class="hero">
+  <div class="hero-content">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4">Shop Fatbikes &amp; Parts</h1>
+    <p class="text-lg md:text-xl mb-6 max-w-2xl">
+      Explore premium fatbikes and rugged components engineered for snow, sand, and everything between.
+    </p>
+    <div class="space-x-3">
+      <a mat-raised-button color="accent" routerLink="/catalog">Browse Catalog</a>
+      <a mat-stroked-button color="primary" routerLink="/auth/register">Join the community</a>
+    </div>
+  </div>
+</section>
+
+<section class="py-12">
+  <h2 class="section-title">Featured builds</h2>
+  <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+    <ng-container *ngIf="featured$ | async as featured">
+      <article *ngFor="let product of featured" class="card">
+        <img [src]="product.imageUrl" [alt]="product.name" class="card-image">
+        <div class="card-body">
+          <span class="badge">{{ categoryFor(product) }}</span>
+          <h3 class="card-title">{{ product.name }}</h3>
+          <p class="price">€ {{ product.price | number:'1.2-2' }}</p>
+          <button mat-stroked-button color="primary" [routerLink]="['/catalog', product.id]">View</button>
+        </div>
+      </article>
+    </ng-container>
+  </div>
+</section>

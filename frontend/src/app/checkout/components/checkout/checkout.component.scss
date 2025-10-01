@@ -1,0 +1,41 @@
+.checkout {
+  display: grid;
+  gap: 2rem;
+}
+
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.summary-table th,
+.summary-table td {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.totals {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.totals div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.totals .total {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.note {
+  color: #94a3b8;
+  font-size: 0.8rem;
+  margin-top: 1rem;
+}
+
+.success {
+  border-left: 4px solid #22c55e;
+}

@@ -1,0 +1,47 @@
+<section class="filters">
+  <mat-form-field appearance="outline">
+    <mat-label>Search</mat-label>
+    <input matInput [formControl]="searchControl" placeholder="Search by name or SKU">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Sort by</mat-label>
+    <mat-select [formControl]="sortControl">
+      <mat-option value="default">Featured</mat-option>
+      <mat-option value="priceAsc">Price: Low to high</mat-option>
+      <mat-option value="priceDesc">Price: High to low</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Category</mat-label>
+    <mat-select [formControl]="categoryControl">
+      <mat-option *ngFor="let category of categories" [value]="category">{{ category }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</section>
+
+<section class="grid gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
+  <ng-container *ngIf="filtered$ | async as products; else loading">
+    <article *ngFor="let product of products; trackBy: trackById" class="product-card">
+      <img [src]="product.imageUrl" [alt]="product.name">
+      <div class="content">
+        <h3>{{ product.name }}</h3>
+        <p class="description">{{ product.description }}</p>
+        <div class="meta">
+          <span class="price">€ {{ product.price | number:'1.2-2' }}</span>
+          <span class="stock" [class.low-stock]="product.stock < 5">{{ product.stock }} in stock</span>
+        </div>
+        <div class="actions">
+          <button mat-stroked-button color="primary" [routerLink]="[product.id]">Details</button>
+          <button mat-raised-button color="accent" (click)="addToCart(product)">Add to cart</button>
+        </div>
+      </div>
+    </article>
+    <p class="text-center col-span-full text-slate-500" *ngIf="!products.length">No products match your filters.</p>
+  </ng-container>
+</section>
+
+<ng-template #loading>
+  <div class="flex justify-center py-12">
+    <mat-progress-spinner diameter="48" mode="indeterminate"></mat-progress-spinner>
+  </div>
+</ng-template>

@@ -1,0 +1,66 @@
+.hero {
+  background: url('https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  color: #fff;
+  padding: 6rem 1.5rem;
+  border-radius: 1.5rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.hero-content {
+  max-width: 600px;
+  backdrop-filter: blur(6px);
+  background-color: rgba(17, 24, 39, 0.5);
+  padding: 2.5rem;
+  border-radius: 1.25rem;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-image {
+  height: 200px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.card-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 112, 67, 0.15);
+  color: #ff7043;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.price {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
