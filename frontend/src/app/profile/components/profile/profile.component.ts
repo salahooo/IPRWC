@@ -17,10 +17,10 @@ export class ProfileComponent implements OnInit {
   loadingOrders = false;
 
   readonly profileForm = this.fb.group({
-    fullName: ['', Validators.required],
-    gender: [''],
-    email: ['', [Validators.required, Validators.email]],
-    dateOfBirth: ['', Validators.required]
+    fullName: this.fb.nonNullable.control('', Validators.required),
+    gender: this.fb.control<string | null>(''),
+    email: this.fb.nonNullable.control('', [Validators.required, Validators.email]),
+    dateOfBirth: this.fb.control<Date | null>(null, Validators.required)
   });
 
   readonly passwordForm = this.fb.group({
@@ -67,12 +67,15 @@ export class ProfileComponent implements OnInit {
     if (this.profileForm.invalid) {
       return;
     }
-    const value = this.profileForm.value;
+    const value = this.profileForm.getRawValue();
+    if (!value.dateOfBirth) {
+      return;
+    }
     this.userService.update({
-      fullName: value.fullName!,
+      fullName: value.fullName,
       gender: value.gender ?? undefined,
-      email: value.email!,
-      dateOfBirth: (value.dateOfBirth as Date).toISOString().split('T')[0]
+      email: value.email,
+      dateOfBirth: value.dateOfBirth.toISOString().split('T')[0]
     }).subscribe({
       next: profile => {
         this.profile = profile;
@@ -95,3 +98,5 @@ export class ProfileComponent implements OnInit {
     });
   }
 }
+
+
