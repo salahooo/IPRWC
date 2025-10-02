@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -22,6 +22,11 @@ type RegisterFormValue = {
 export class RegisterComponent {
   loading = false;
 
+  private readonly fb = inject(FormBuilder);
+  private readonly authService = inject(AuthService);
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly router = inject(Router);
+
   readonly form = this.fb.group({
     username: this.fb.control('', { validators: [Validators.required, Validators.minLength(3)], nonNullable: true }),
     email: this.fb.control('', { validators: [Validators.required, Validators.email], nonNullable: true }),
@@ -31,12 +36,6 @@ export class RegisterComponent {
     dateOfBirth: this.fb.control<Date | null>(null, { validators: [Validators.required] })
   });
 
-  constructor(
-    private readonly fb: FormBuilder,
-    private readonly authService: AuthService,
-    private readonly snackBar: MatSnackBar,
-    private readonly router: Router
-  ) {}
 
   submit(): void {
     if (this.form.invalid) {
@@ -79,3 +78,5 @@ export class RegisterComponent {
     return date;
   }
 }
+
+

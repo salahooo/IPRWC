@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   sidenavOpened = false;
+  readonly currentYear = new Date().getFullYear();
 
   toggleSidenav(): void {
     this.sidenavOpened = !this.sidenavOpened;
@@ -16,3 +17,4 @@ export class AppComponent {
     this.sidenavOpened = false;
   }
 }
+

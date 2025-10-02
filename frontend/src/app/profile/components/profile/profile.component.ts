@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../../../core/services/user.service';
@@ -16,6 +16,11 @@ export class ProfileComponent implements OnInit {
   orders: Order[] = [];
   loadingOrders = false;
 
+  private readonly fb = inject(FormBuilder);
+  private readonly userService = inject(UserService);
+  private readonly orderService = inject(OrderService);
+  private readonly snackBar = inject(MatSnackBar);
+
   readonly profileForm = this.fb.group({
     fullName: this.fb.nonNullable.control('', Validators.required),
     gender: this.fb.control<string | null>(''),
@@ -28,12 +33,6 @@ export class ProfileComponent implements OnInit {
     newPassword: ['', [Validators.required, Validators.minLength(8)]]
   });
 
-  constructor(
-    private readonly fb: FormBuilder,
-    private readonly userService: UserService,
-    private readonly orderService: OrderService,
-    private readonly snackBar: MatSnackBar
-  ) {}
 
   ngOnInit(): void {
     this.loadProfile();
@@ -98,5 +97,8 @@ export class ProfileComponent implements OnInit {
     });
   }
 }
+
+
+
 
 

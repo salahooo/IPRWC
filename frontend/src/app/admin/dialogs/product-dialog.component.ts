@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Product } from '../../shared/models/product.model';
@@ -9,6 +9,10 @@ import { Product } from '../../shared/models/product.model';
   styleUrls: ['./product-dialog.component.scss']
 })
 export class ProductDialogComponent {
+  private readonly fb = inject(FormBuilder);
+  private readonly dialogRef = inject(MatDialogRef<ProductDialogComponent>);
+  private readonly product = inject<Product | null>(MAT_DIALOG_DATA);
+
   readonly form = this.fb.group({
     name: ['', Validators.required],
     sku: ['', Validators.required],
@@ -18,13 +22,9 @@ export class ProductDialogComponent {
     stock: [0, [Validators.required, Validators.min(0)]]
   });
 
-  constructor(
-    private readonly fb: FormBuilder,
-    private readonly dialogRef: MatDialogRef<ProductDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) product: Product | null
-  ) {
-    if (product) {
-      this.form.patchValue(product);
+  constructor() {
+    if (this.product) {
+      this.form.patchValue(this.product);
     }
   }
 
@@ -35,3 +35,5 @@ export class ProductDialogComponent {
     this.dialogRef.close(this.form.value);
   }
 }
+
+
