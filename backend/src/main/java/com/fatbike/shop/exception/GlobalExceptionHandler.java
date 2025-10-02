@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -50,6 +51,17 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ApiError> handleConstraintViolation(ConstraintViolationException ex, HttpServletRequest request) {
         return buildError(HttpStatus.BAD_REQUEST, ex.getMessage(), request.getRequestURI());
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<ApiError> handleMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpServletRequest request) {
+        String supported = ex.getSupportedHttpMethods() != null && !ex.getSupportedHttpMethods().isEmpty()
+                ? "Supported methods: " + ex.getSupportedHttpMethods()
+                : "";
+        String message = supported.isEmpty()
+                ? String.format("Request method '%s' is not supported", ex.getMethod())
+                : String.format("Request method '%s' is not supported. %s", ex.getMethod(), supported);
+        return buildError(HttpStatus.METHOD_NOT_ALLOWED, message, request.getRequestURI());
     }
 
     @ExceptionHandler(Exception.class)
