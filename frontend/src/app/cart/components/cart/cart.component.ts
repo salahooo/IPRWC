@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { CartService } from '../../../core/services/cart.service';
 import { CartItem } from '../../../shared/models/cart.model';
+import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-cart',
@@ -11,7 +13,11 @@ import { CartItem } from '../../../shared/models/cart.model';
 export class CartComponent implements OnInit {
   items: CartItem[] = [];
 
-  constructor(private readonly cartService: CartService, private readonly router: Router) {}
+  constructor(
+    private readonly cartService: CartService,
+    private readonly router: Router,
+    private readonly dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.items = this.cartService.getItems();
@@ -27,7 +33,21 @@ export class CartComponent implements OnInit {
   }
 
   remove(item: CartItem): void {
-    this.cartService.remove(item.product.id);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '360px',
+      data: {
+        title: 'Remove item',
+        message: `Remove ${item.product.name} from your cart?`,
+        confirmLabel: 'Remove',
+        cancelLabel: 'Keep'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.cartService.remove(item.product.id);
+      }
+    });
   }
 
   checkout(): void {

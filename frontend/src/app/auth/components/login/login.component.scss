@@ -1,19 +1,26 @@
-.auth-card {
-  display: flex;
+@use '../../styles/auth-layout';
+
+.auth-hero--login {
+  --hero-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80');
+  --hero-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(249, 115, 22, 0.5));
+}
+
+.auth-form {
+  margin-top: 0.5rem;
+}
+
+.auth-card__actions {
   justify-content: center;
-  padding: 4rem 1.5rem;
 }
 
-mat-card {
-  max-width: 420px;
-  width: 100%;
-}
+@media (max-width: 640px) {
+  .auth-card__actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+  }
 
-.form-grid {
-  display: grid;
-  gap: 1rem;
-}
-
-mat-progress-spinner {
-  margin-right: 0.5rem;
+  .auth-card__actions a {
+    padding: 0;
+  }
 }

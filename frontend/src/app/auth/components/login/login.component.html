@@ -1,32 +1,52 @@
-<section class="auth-card">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Login</mat-card-title>
-      <mat-card-subtitle>Use your username or email to sign in.</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <form [formGroup]="form" (ngSubmit)="submit()" class="form-grid">
-        <mat-form-field appearance="outline">
-          <mat-label>Username or Email</mat-label>
-          <input matInput formControlName="usernameOrEmail" placeholder="admin or admin@fatbike.shop">
-          <mat-error *ngIf="form.controls.usernameOrEmail.hasError('required')">Required</mat-error>
-        </mat-form-field>
+<section class="auth-layout">
+  <div class="auth-hero auth-hero--login">
+    <div class="auth-hero__content">
+      <span class="auth-hero__eyebrow">Welcome back</span>
+      <h1 class="auth-hero__title">Sign in to your fatbike garage</h1>
+      <p class="auth-hero__description">
+        Access your builds, track recent orders, and get tuned recommendations for your next ride.
+      </p>
+      <ul class="auth-benefits">
+        <li><mat-icon>bolt</mat-icon>Fast checkout on saved builds</li>
+        <li><mat-icon>precision_manufacturing</mat-icon>Service history in one place</li>
+        <li><mat-icon>terrain</mat-icon>Curated trails and events</li>
+      </ul>
+    </div>
+  </div>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Password</mat-label>
-          <input matInput type="password" formControlName="password">
-          <mat-error *ngIf="form.controls.password.hasError('required')">Required</mat-error>
-        </mat-form-field>
+  <div class="auth-panel">
+    <mat-card class="auth-card">
+      <mat-card-header>
+        <mat-card-title>Login</mat-card-title>
+        <mat-card-subtitle>Use your username or email to jump back on the trail.</mat-card-subtitle>
+      </mat-card-header>
 
-        <button mat-raised-button color="primary" class="w-full" [disabled]="form.invalid || loading">
-          <mat-progress-spinner *ngIf="loading" diameter="20" mode="indeterminate"></mat-progress-spinner>
-          <span *ngIf="!loading">Sign in</span>
-        </button>
-      </form>
-    </mat-card-content>
-    <mat-card-actions>
-      <span>Donâ€™t have an account?</span>
-      <a mat-button color="accent" routerLink="/auth/register">Create one</a>
-    </mat-card-actions>
-  </mat-card>
+      <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="submit()" class="auth-form">
+          <mat-form-field appearance="fill">
+            <mat-label>Username or Email</mat-label>
+            <input matInput formControlName="usernameOrEmail" placeholder="admin or admin@fatbike.shop">
+            <mat-error *ngIf="form.controls.usernameOrEmail.hasError('required')">Required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password">
+            <mat-error *ngIf="form.controls.password.hasError('required')">Required</mat-error>
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" class="submit-button" type="submit" [disabled]="form.invalid || loading">
+            <mat-progress-spinner *ngIf="loading" diameter="20" mode="indeterminate"></mat-progress-spinner>
+            <span *ngIf="!loading">Sign in</span>
+            <span *ngIf="loading">Signing you in…</span>
+          </button>
+        </form>
+      </mat-card-content>
+
+      <mat-card-actions class="auth-card__actions">
+        <span>Don't have an account?</span>
+        <a mat-button color="accent" routerLink="/auth/register">Create one</a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </section>

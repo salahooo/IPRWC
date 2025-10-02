@@ -1,50 +1,76 @@
-<section class="auth-card">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Create account</mat-card-title>
-      <mat-card-subtitle>Ride with us. Password must include uppercase, lowercase, number and symbol.</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <form [formGroup]="form" (ngSubmit)="submit()" class="form-grid">
-        <mat-form-field appearance="outline">
-          <mat-label>Username</mat-label>
-          <input matInput formControlName="username">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="email" type="email">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Password</mat-label>
-          <input matInput type="password" formControlName="password">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Full name</mat-label>
-          <input matInput formControlName="fullName">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Gender</mat-label>
-          <mat-select formControlName="gender">
-            <mat-option value="Male">Male</mat-option>
-            <mat-option value="Female">Female</mat-option>
-            <mat-option value="Other">Other</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Date of birth</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        <button mat-raised-button color="primary" class="w-full" [disabled]="form.invalid || loading">
-          <mat-progress-spinner *ngIf="loading" diameter="20" mode="indeterminate"></mat-progress-spinner>
-          <span *ngIf="!loading">Register</span>
-        </button>
-      </form>
-    </mat-card-content>
-    <mat-card-actions>
-      <span>Already have an account?</span>
-      <a mat-button color="accent" routerLink="/auth/login">Login</a>
-    </mat-card-actions>
-  </mat-card>
+<section class="auth-layout">
+  <div class="auth-hero auth-hero--register">
+    <div class="auth-hero__content">
+      <span class="auth-hero__eyebrow">Join the crew</span>
+      <h1 class="auth-hero__title">Build, ride, and share your adventures</h1>
+      <p class="auth-hero__description">
+        Create an account to unlock curated gear drops, setup reminders, and ride analytics tailored to your terrain.
+      </p>
+      <ul class="auth-benefits">
+        <li><mat-icon>military_tech</mat-icon>Exclusive member-only releases</li>
+        <li><mat-icon>favorite</mat-icon>Personalized fit & tuning tips</li>
+        <li><mat-icon>landscape</mat-icon>Trail-ready checklists before you ride</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="auth-panel">
+    <mat-card class="auth-card">
+      <mat-card-header>
+        <mat-card-title>Create account</mat-card-title>
+        <mat-card-subtitle>Password must include uppercase, lowercase, number, and symbol.</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="submit()" class="auth-form">
+          <mat-form-field appearance="fill">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="username">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="email">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Full name</mat-label>
+            <input matInput formControlName="fullName">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Gender</mat-label>
+            <mat-select formControlName="gender">
+              <mat-option value="Male">Male</mat-option>
+              <mat-option value="Female">Female</mat-option>
+              <mat-option value="Other">Other</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Date of birth</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" class="submit-button" type="submit" [disabled]="form.invalid || loading">
+            <mat-progress-spinner *ngIf="loading" diameter="20" mode="indeterminate"></mat-progress-spinner>
+            <span *ngIf="!loading">Register</span>
+            <span *ngIf="loading">Creating your account…</span>
+          </button>
+        </form>
+      </mat-card-content>
+
+      <mat-card-actions class="auth-card__actions">
+        <span>Already have an account?</span>
+        <a mat-button color="accent" routerLink="/auth/login">Login</a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </section>

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -9,13 +10,22 @@ import { AuthService } from '../../services/auth.service';
 })
 export class NavbarComponent {
   @Output() toggleSidenav = new EventEmitter<void>();
-  readonly isLoggedIn$: Observable<boolean> = this.authService.isLoggedIn();
-  readonly roles$ = this.authService.rolesChanges();
-  readonly username$ = this.authService.usernameChanges();
 
-  constructor(private readonly authService: AuthService) {}
+  readonly isLoggedIn$: Observable<boolean>;
+  readonly roles$: Observable<string[]>;
+  readonly username$: Observable<string | null>;
+
+  constructor(
+    private readonly authService: AuthService,
+    private readonly router: Router
+  ) {
+    this.isLoggedIn$ = this.authService.isLoggedIn();
+    this.roles$ = this.authService.rolesChanges();
+    this.username$ = this.authService.usernameChanges();
+  }
 
   logout(): void {
     this.authService.logout();
+    this.router.navigateByUrl('/');
   }
 }

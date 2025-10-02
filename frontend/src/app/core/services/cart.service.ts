@@ -18,26 +18,29 @@ export class CartService {
   }
 
   addItem(item: CartItem): void {
-    const existing = this.cart$.value.find(i => i.product.id === item.product.id);
-    if (existing) {
-      existing.quantity += item.quantity;
-    } else {
-      this.cart$.next([...this.cart$.value, item]);
-    }
-    this.persist();
+    const updated = this.cart$.value.some(existing => existing.product.id === item.product.id)
+      ? this.cart$.value.map(existing =>
+          existing.product.id === item.product.id
+            ? { ...existing, quantity: existing.quantity + item.quantity }
+            : existing
+        )
+      : [...this.cart$.value, item];
+    this.cart$.next(updated);
+    this.persist(updated);
   }
 
   updateQuantity(productId: number, quantity: number): void {
-    const updated = this.cart$.value.map(item =>
-      item.product.id === productId ? { ...item, quantity } : item
-    );
-    this.cart$.next(updated.filter(item => item.quantity > 0));
-    this.persist();
+    const updated = this.cart$.value
+      .map(item => (item.product.id === productId ? { ...item, quantity } : item))
+      .filter(item => item.quantity > 0);
+    this.cart$.next(updated);
+    this.persist(updated);
   }
 
   remove(productId: number): void {
-    this.cart$.next(this.cart$.value.filter(item => item.product.id !== productId));
-    this.persist();
+    const filtered = this.cart$.value.filter(item => item.product.id !== productId);
+    this.cart$.next(filtered);
+    this.persist(filtered);
   }
 
   clear(): void {
@@ -46,8 +49,10 @@ export class CartService {
   }
 
   totals(): CartTotals {
-    const subtotal = this.cart$.value.reduce((sum, item) =>
-      sum + item.product.price * item.quantity, 0);
+    const subtotal = this.cart$.value.reduce(
+      (sum, item) => sum + item.product.price * item.quantity,
+      0
+    );
     const tax = subtotal * TAX_RATE;
     return {
       subtotal,
@@ -56,8 +61,8 @@ export class CartService {
     };
   }
 
-  private persist(): void {
-    localStorage.setItem(CART_KEY, JSON.stringify(this.cart$.value));
+  private persist(items: CartItem[] = this.cart$.value): void {
+    localStorage.setItem(CART_KEY, JSON.stringify(items));
   }
 
   private load(): CartItem[] {

@@ -1,11 +1,39 @@
 .toolbar {
-  background: linear-gradient(90deg, #ff7043 0%, #fb8c00 100%);
+  background: linear-gradient(90deg, #ff7043 0%, #fb8c00 55%, #f59e0b 100%);
+  box-shadow: 0 12px 30px rgba(249, 115, 22, 0.25);
+  padding: 0 clamp(1rem, 4vw, 3rem);
 }
 
 .logo {
   text-decoration: none;
+  letter-spacing: 0.08em;
 }
 
 a.active {
   font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.6);
+  text-decoration-thickness: 2px;
+}
+
+.menu-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-button mat-icon {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+mat-toolbar button[mat-icon-button] {
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .toolbar {
+    padding: 0 1rem;
+  }
 }

@@ -9,6 +9,7 @@ import { Product } from '../../shared/models/product.model';
 import { Order, ORDER_STATUS_OPTIONS } from '../../shared/models/order.model';
 import { UserProfile } from '../../shared/models/user.model';
 import { ProductDialogComponent } from '../dialogs/product-dialog.component';
+import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-admin',
@@ -94,12 +95,24 @@ export class AdminComponent implements OnInit {
   }
 
   deleteProduct(product: Product): void {
-    if (!confirm(`Delete ${product.name}?`)) {
-      return;
-    }
-    this.productService.delete(product.id).subscribe(() => {
-      this.products = this.products.filter(p => p.id !== product.id);
-      this.snackBar.open('Product deleted', undefined, { duration: 3000 });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '360px',
+      data: {
+        title: 'Delete product',
+        message: `Are you sure you want to delete ${product.name}?`,
+        confirmLabel: 'Delete',
+        cancelLabel: 'Cancel'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return;
+      }
+      this.productService.delete(product.id).subscribe(() => {
+        this.products = this.products.filter(p => p.id !== product.id);
+        this.snackBar.open('Product deleted', undefined, { duration: 3000 });
+      });
     });
   }
 
@@ -111,12 +124,24 @@ export class AdminComponent implements OnInit {
   }
 
   deleteUser(user: UserProfile): void {
-    if (!confirm(`Remove user ${user.username}?`)) {
-      return;
-    }
-    this.userService.deleteUser(user.id).subscribe(() => {
-      this.users = this.users.filter(u => u.id !== user.id);
-      this.snackBar.open('User deleted', undefined, { duration: 3000 });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '360px',
+      data: {
+        title: 'Remove user',
+        message: `Remove user ${user.username}?`,
+        confirmLabel: 'Remove',
+        cancelLabel: 'Cancel'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return;
+      }
+      this.userService.deleteUser(user.id).subscribe(() => {
+        this.users = this.users.filter(u => u.id !== user.id);
+        this.snackBar.open('User deleted', undefined, { duration: 3000 });
+      });
     });
   }
 }

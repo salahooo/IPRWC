@@ -5,15 +5,15 @@
       <mat-tab-group>
         <mat-tab label="Personal info">
           <form [formGroup]="profileForm" class="form-grid" (ngSubmit)="saveProfile()">
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
               <mat-label>Full name</mat-label>
               <input matInput formControlName="fullName">
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
               <mat-label>Email</mat-label>
               <input matInput formControlName="email" type="email">
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
               <mat-label>Gender</mat-label>
               <mat-select formControlName="gender">
                 <mat-option value="">Prefer not to say</mat-option>
@@ -22,7 +22,7 @@
                 <mat-option value="Other">Other</mat-option>
               </mat-select>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
               <mat-label>Date of birth</mat-label>
               <input matInput [matDatepicker]="dobPicker" formControlName="dateOfBirth">
               <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
@@ -33,11 +33,11 @@
         </mat-tab>
         <mat-tab label="Change password">
           <form [formGroup]="passwordForm" class="form-grid" (ngSubmit)="changePassword()">
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
               <mat-label>Current password</mat-label>
               <input matInput type="password" formControlName="oldPassword">
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
               <mat-label>New password</mat-label>
               <input matInput type="password" formControlName="newPassword">
             </mat-form-field>

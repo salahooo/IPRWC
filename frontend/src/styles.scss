@@ -1,15 +1,43 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
   font-family: 'Montserrat', sans-serif;
+  color-scheme: light;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
 }
 
 body {
   margin: 0;
-  background: #f8fafc;
+  background: radial-gradient(circle at top, rgba(248, 250, 252, 0.9), #f1f5f9 55%);
   color: #1f2937;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  color: inherit;
+}
+
+.mat-typography {
+  font-family: inherit;
+}
+
+.mat-mdc-unelevated-button.mat-mdc-button-base,
+.mat-mdc-raised-button.mat-mdc-button-base,
+.mat-mdc-outlined-button.mat-mdc-button-base {
+  border-radius: 999px;
+  text-transform: none;
+  font-weight: 600;
 }
 
 .mat-mdc-snack-bar-container {

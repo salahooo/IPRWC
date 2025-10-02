@@ -25,10 +25,14 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
+  declarations: [ConfirmDialogComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    MatDialogModule,
+    MatButtonModule
   ],
   exports: [
     CommonModule,
@@ -57,7 +61,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatBadgeModule,
     MatProgressSpinnerModule,
     MatStepperModule,
-    MatSidenavModule
+    MatSidenavModule,
+    ConfirmDialogComponent
   ]
 })
 export class SharedModule {}
