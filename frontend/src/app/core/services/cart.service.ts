@@ -7,6 +7,7 @@ const TAX_RATE = 0.21;
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
+  private storageKey = CART_KEY;
   private readonly cart$ = new BehaviorSubject<CartItem[]>(this.load());
 
   cartChanges() {
@@ -15,6 +16,11 @@ export class CartService {
 
   getItems(): CartItem[] {
     return this.cart$.value;
+  }
+
+  setActiveUser(username: string | null): void {
+    this.storageKey = username ? `${CART_KEY}_${username}` : CART_KEY;
+    this.cart$.next(this.load());
   }
 
   addItem(item: CartItem): void {
@@ -45,7 +51,7 @@ export class CartService {
 
   clear(): void {
     this.cart$.next([]);
-    localStorage.removeItem(CART_KEY);
+    localStorage.removeItem(this.storageKey);
   }
 
   totals(): CartTotals {
@@ -62,11 +68,11 @@ export class CartService {
   }
 
   private persist(items: CartItem[] = this.cart$.value): void {
-    localStorage.setItem(CART_KEY, JSON.stringify(items));
+    localStorage.setItem(this.storageKey, JSON.stringify(items));
   }
 
   private load(): CartItem[] {
-    const raw = localStorage.getItem(CART_KEY);
+    const raw = localStorage.getItem(this.storageKey);
     if (!raw) {
       return [];
     }

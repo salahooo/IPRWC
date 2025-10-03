@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { AuthResponse, LoginRequest, RegisterRequest } from '../../shared/models/auth.model';
 import { UserProfile } from '../../shared/models/user.model';
 import { environment } from '../../../environments/environment';
+import { CartService } from './cart.service';
 
 const TOKEN_KEY = 'fatbike_token';
 const ROLES_KEY = 'fatbike_roles';
@@ -16,7 +17,9 @@ export class AuthService {
   private readonly roles$ = new BehaviorSubject<string[]>(this.getStoredRoles());
   private readonly username$ = new BehaviorSubject<string | null>(localStorage.getItem(USERNAME_KEY));
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient, private readonly cartService: CartService) {
+    this.cartService.setActiveUser(this.username$.value);
+  }
 
   login(payload: LoginRequest): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/auth/login`, payload).pipe(
@@ -32,6 +35,8 @@ export class AuthService {
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(ROLES_KEY);
     localStorage.removeItem(USERNAME_KEY);
+    this.cartService.clear();
+    this.cartService.setActiveUser(null);
     this.loggedIn$.next(false);
     this.roles$.next([]);
     this.username$.next(null);
@@ -61,6 +66,7 @@ export class AuthService {
     localStorage.setItem(TOKEN_KEY, response.token);
     localStorage.setItem(ROLES_KEY, JSON.stringify(response.roles));
     localStorage.setItem(USERNAME_KEY, response.username);
+    this.cartService.setActiveUser(response.username);
     this.loggedIn$.next(true);
     this.roles$.next(response.roles);
     this.username$.next(response.username);
