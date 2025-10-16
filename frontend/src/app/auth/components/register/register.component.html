@@ -1,15 +1,15 @@
 <section class="auth-layout">
   <div class="auth-hero auth-hero--register">
     <div class="auth-hero__content">
-      <span class="auth-hero__eyebrow">Join the crew</span>
-      <h1 class="auth-hero__title">Build, ride, and share your adventures</h1>
+      <span class="auth-hero__eyebrow">Join the build team</span>
+      <h1 class="auth-hero__title">Craft, tune, and showcase your dream PC</h1>
       <p class="auth-hero__description">
-        Create an account to unlock curated gear drops, setup reminders, and ride analytics tailored to your terrain.
+        Create an account to access curated part drops, launch-day notifications, and optimization guides tailored to your playstyle.
       </p>
       <ul class="auth-benefits">
-        <li><mat-icon>military_tech</mat-icon>Exclusive member-only releases</li>
-        <li><mat-icon>favorite</mat-icon>Personalized fit & tuning tips</li>
-        <li><mat-icon>landscape</mat-icon>Trail-ready checklists before you ride</li>
+        <li><mat-icon>workspace_premium</mat-icon>Member-only GPU &amp; peripheral releases</li>
+        <li><mat-icon>auto_fix_high</mat-icon>Step-by-step build &amp; tuning playbooks</li>
+        <li><mat-icon>cloud_sync</mat-icon>Cloud-synced part lists across devices</li>
       </ul>
     </div>
   </div>
@@ -62,7 +62,7 @@
           <button mat-raised-button color="primary" class="submit-button" type="submit" [disabled]="form.invalid || loading">
             <mat-progress-spinner *ngIf="loading" diameter="20" mode="indeterminate"></mat-progress-spinner>
             <span *ngIf="!loading">Register</span>
-            <span *ngIf="loading">Creating your account…</span>
+            <span *ngIf="loading">Creating your account.</span>
           </button>
         </form>
       </mat-card-content>
