@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://iprwc-api.onrender.com'
+  apiUrl: 'https://iprwc-api.onrender.com/api'
 };
