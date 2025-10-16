@@ -1,4 +1,4 @@
-﻿package com.pcparts.shop.repository;
+package com.pcparts.shop.repository;
 
 import com.pcparts.shop.entity.Order;
 import com.pcparts.shop.entity.User;

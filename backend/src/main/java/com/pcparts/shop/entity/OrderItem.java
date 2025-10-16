@@ -1,4 +1,4 @@
-﻿package com.pcparts.shop.entity;
+package com.pcparts.shop.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

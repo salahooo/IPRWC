@@ -1,4 +1,4 @@
-﻿package com.pcparts.shop.dto.product;
+package com.pcparts.shop.dto.product;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;

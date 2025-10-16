@@ -1,4 +1,4 @@
-﻿package com.pcparts.shop.security;
+package com.pcparts.shop.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pcparts.shop.exception.ApiError;

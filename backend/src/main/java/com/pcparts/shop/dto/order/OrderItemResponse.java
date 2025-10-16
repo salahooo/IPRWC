@@ -1,4 +1,4 @@
-﻿package com.pcparts.shop.dto.order;
+package com.pcparts.shop.dto.order;
 
 import java.math.BigDecimal;
 

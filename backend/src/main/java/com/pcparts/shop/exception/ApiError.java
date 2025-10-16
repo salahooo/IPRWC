@@ -1,4 +1,4 @@
-﻿package com.pcparts.shop.exception;
+package com.pcparts.shop.exception;
 
 import java.time.OffsetDateTime;
 

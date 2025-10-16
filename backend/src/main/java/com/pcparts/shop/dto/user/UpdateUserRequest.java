@@ -1,4 +1,4 @@
-﻿package com.pcparts.shop.dto.user;
+package com.pcparts.shop.dto.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

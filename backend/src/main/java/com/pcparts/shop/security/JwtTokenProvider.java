@@ -1,4 +1,4 @@
-﻿package com.pcparts.shop.security;
+package com.pcparts.shop.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

@@ -1,4 +1,4 @@
-﻿package com.pcparts.shop.exception;
+package com.pcparts.shop.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;

@@ -1,4 +1,4 @@
-﻿package com.pcparts.shop.repository;
+package com.pcparts.shop.repository;
 
 import com.pcparts.shop.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;

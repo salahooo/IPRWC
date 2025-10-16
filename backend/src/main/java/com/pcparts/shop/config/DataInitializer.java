@@ -1,4 +1,4 @@
-﻿package com.pcparts.shop.config;
+package com.pcparts.shop.config;
 
 import com.pcparts.shop.entity.Product;
 import com.pcparts.shop.entity.Role;

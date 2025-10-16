@@ -1,4 +1,4 @@
-﻿package com.pcparts.shop.dto.product;
+package com.pcparts.shop.dto.product;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;

@@ -1,4 +1,4 @@
-﻿package com.pcparts.shop.dto.auth;
+package com.pcparts.shop.dto.auth;
 
 import jakarta.validation.constraints.NotBlank;
 
