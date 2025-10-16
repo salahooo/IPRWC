@@ -11,7 +11,7 @@ public class WebConfig {
   public WebMvcConfigurer corsConfigurer() {
     String allowedOrigins = System.getenv("CORS_ALLOWED_ORIGINS");
     if (allowedOrigins == null) {
-      allowedOrigins = "http://localhost:4200";
+      allowedOrigins = "https://iprwc.onrender.com";
     }
     final String finalAllowed = allowedOrigins;
     return new WebMvcConfigurer() {

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Observable, map } from 'rxjs';
 import { ProductService } from '../../services/product.service';
 import { Product, resolveCategory } from '../../../shared/models/product.model';
@@ -83,26 +82,18 @@ export class HomeComponent implements OnInit {
   ];
   readonly visitDetails = [
     { label: 'Address', value: 'Nieuwe Binnenweg 123, Rotterdam' },
-    { label: 'Workshop hours', value: 'Tue – Sat · 10:00 – 18:00' },
-    { label: 'Ride-outs', value: 'Every first Sunday · 09:30' }
+    { label: 'Workshop hours', value: 'Tue-Sat | 10:00-18:00' },
+    { label: 'Ride-outs', value: 'Every first Sunday | 09:30' }
   ];
   readonly newsletterPerks = [
     'Early access to limited drops',
     'Maintenance reminders & tips',
     'Invites to demo days and build clinics'
   ];
-  // Sanitised Google Maps iframe URL so Angular treats it as safe
-  readonly mapEmbedUrl: SafeResourceUrl;
 
   constructor(
-    private readonly productService: ProductService,
-    private readonly sanitizer: DomSanitizer
-  ) {
-    // Pre-sanitise the embed once so change detection doesn't recompute it
-    this.mapEmbedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2436.0794684586546!2d4.470660877207305!3d51.92442067187477!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c4335769f57ac9%3A0xede6386e0d454893!2sRotterdam!5e0!3m2!1sen!2snl!4v1696263000000!5m2!1sen!2snl'
-    );
-  }
+    private readonly productService: ProductService
+  ) {}
 
   ngOnInit(): void {
     // Cache the full list then derive the subset used by the "Popular builds" grid

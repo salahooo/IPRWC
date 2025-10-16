@@ -375,10 +375,9 @@
 }
 
 .visit {
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  align-items: stretch;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .visit-card {
@@ -390,6 +389,8 @@
   flex-direction: column;
   gap: 1.5rem;
   box-shadow: 0 16px 38px rgba(15, 23, 42, 0.35);
+  max-width: 420px;
+  width: 100%;
 }
 
 .visit-card h2 {
@@ -417,14 +418,6 @@
 .visit-card .value {
   font-size: 1.05rem;
   font-weight: 600;
-}
-
-.visit-map {
-  border: none;
-  border-radius: 1.5rem;
-  min-height: 320px;
-  width: 100%;
-  box-shadow: 0 16px 30px rgba(15, 23, 42, 0.15);
 }
 
 .newsletter-card {

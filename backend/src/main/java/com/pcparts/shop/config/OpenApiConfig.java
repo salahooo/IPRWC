@@ -17,9 +17,9 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Gaming Computer Parts Store API")
+                        .title("Gaming Parts Store API")
                         .version("v1")
-                        .description("API documentation for the Gaming Computer Parts Store"))
+                        .description("API documentation for the Gaming Parts Store"))
                 .addSecurityItem(new SecurityRequirement().addList(SECURITY_SCHEME_NAME))
                 .components(new Components().addSecuritySchemes(SECURITY_SCHEME_NAME,
                         new SecurityScheme()
