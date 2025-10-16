@@ -50,6 +50,24 @@ export class CartComponent implements OnInit {
     });
   }
 
+  clearCart(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '360px',
+      data: {
+        title: 'Clear cart',
+        message: 'Remove all items from your cart?',
+        confirmLabel: 'Clear',
+        cancelLabel: 'Cancel'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.cartService.clear();
+      }
+    });
+  }
+
   checkout(): void {
     this.router.navigate(['/checkout']);
   }

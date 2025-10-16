@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ValidationErrors, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../../../core/services/user.service';
 import { OrderService } from '../../../core/services/order.service';
@@ -28,10 +28,18 @@ export class ProfileComponent implements OnInit {
     dateOfBirth: this.fb.control<Date | null>(null, Validators.required)
   });
 
-  readonly passwordForm = this.fb.group({
-    oldPassword: ['', Validators.required],
-    newPassword: ['', [Validators.required, Validators.minLength(8)]]
-  });
+  readonly passwordForm = this.fb.group(
+    {
+      oldPassword: ['', Validators.required],
+      newPassword: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', Validators.required]
+    },
+    { validators: (control: AbstractControl): ValidationErrors | null => this.passwordsMatchValidator(control) }
+  );
+
+  hideOld = true;
+  hideNew = true;
+  hideConfirm = true;
 
 
   ngOnInit(): void {
@@ -88,13 +96,23 @@ export class ProfileComponent implements OnInit {
     if (this.passwordForm.invalid) {
       return;
     }
-    this.userService.changePassword(this.passwordForm.value as any).subscribe({
+    const { oldPassword, newPassword } = this.passwordForm.value as any;
+    this.userService.changePassword({ oldPassword, newPassword }).subscribe({
       next: () => {
         this.snackBar.open('Password updated', undefined, { duration: 3000 });
         this.passwordForm.reset();
       },
       error: error => this.snackBar.open(error.error?.message || 'Password update failed', 'Close', { duration: 4000 })
     });
+  }
+
+  private passwordsMatchValidator(control: AbstractControl): ValidationErrors | null {
+    const newPassword = control.get('newPassword')?.value;
+    const confirmPassword = control.get('confirmPassword')?.value;
+    if (newPassword && confirmPassword && newPassword !== confirmPassword) {
+      return { passwordMismatch: true };
+    }
+    return null;
   }
 }
 

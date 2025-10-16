@@ -82,47 +82,111 @@ public class DataInitializer implements CommandLineRunner {
         }
     }
 
-    private void createProducts() {
-        List<Map<String, String>> products = List.of(
-                Map.of("sku", "FB-TIRE-20X4", "name", "Fat Tire 20x4.0", "price", "49.99", "description", "Durable 60 TPI all-terrain tire.", "image", "https://images.unsplash.com/photo-1515916717028-2b3c1c0e1a9e", "stock", "25"),
-                Map.of("sku", "FB-TIRE-26X4", "name", "Fat Tire 26x4.0", "price", "59.99", "description", "Snow/sand optimized tread.", "image", "https://images.unsplash.com/photo-1541625602330-2277a4c46182", "stock", "30"),
-                Map.of("sku", "FB-TUBE-20", "name", "Inner Tube 20x4.0", "price", "12.90", "description", "Butyl tube, Schrader valve.", "image", "https://images.unsplash.com/photo-1520975916090-3105956dac38", "stock", "60"),
-                Map.of("sku", "FB-RIM-26", "name", "Alloy Rim 26\" Fat", "price", "89.00", "description", "Double-wall 80mm.", "image", "https://images.unsplash.com/photo-1595433707802-6b1d2a3a8a32", "stock", "40"),
-                Map.of("sku", "FB-HUB-F", "name", "Front Hub 150mm", "price", "49.95", "description", "Sealed bearings, 32H.", "image", "https://images.unsplash.com/photo-1594007654729-407c2f2b4b0d", "stock", "35"),
-                Map.of("sku", "FB-HUB-R", "name", "Rear Hub 197mm", "price", "69.95", "description", "HG freehub, 32H.", "image", "https://images.unsplash.com/photo-1520975693419-82a38c81b5b8", "stock", "30"),
-                Map.of("sku", "FB-BRAKE-DB", "name", "Disc Brake Set", "price", "59.00", "description", "Mechanical, front+rear.", "image", "https://images.unsplash.com/photo-1516307365426-d3a3e4e9a3b1", "stock", "50"),
-                Map.of("sku", "FB-ROTOR-180", "name", "Rotor 180mm", "price", "19.95", "description", "6-bolt stainless rotor.", "image", "https://images.unsplash.com/photo-1517649763962-0c623066013b", "stock", "80"),
-                Map.of("sku", "FB-PAD-ORG", "name", "Organic Brake Pads", "price", "11.50", "description", "Quiet all-weather pads.", "image", "https://images.unsplash.com/photo-1517646287270-0c09a1fef54b", "stock", "100"),
-                Map.of("sku", "FB-CHAIN-11", "name", "11-speed Chain", "price", "24.90", "description", "Anti-rust coating.", "image", "https://images.unsplash.com/photo-1485965120184-e220f721d03e", "stock", "75"),
-                Map.of("sku", "FB-CAS-1142", "name", "Cassette 11-42T", "price", "54.90", "description", "Wide range steel cogs.", "image", "https://images.unsplash.com/photo-1492717009854-9d334fb1a841", "stock", "55"),
-                Map.of("sku", "FB-CRANK-170", "name", "Crankset 170mm", "price", "79.00", "description", "Narrow-wide ring 32T.", "image", "https://images.unsplash.com/photo-1498654200943-1088dd4438ae", "stock", "40"),
-                Map.of("sku", "FB-BAR-780", "name", "Handlebar 780mm", "price", "29.90", "description", "20mm rise alloy.", "image", "https://images.unsplash.com/photo-1517646287710-8c6d6d6d0312", "stock", "65"),
-                Map.of("sku", "FB-STEM-50", "name", "Stem 50mm", "price", "24.90", "description", "31.8mm clamp.", "image", "https://images.unsplash.com/photo-1519681393784-d120267933ba", "stock", "85"),
-                Map.of("sku", "FB-LIGHT-LED", "name", "LED Headlight", "price", "29.95", "description", "800 lm USB-C.", "image", "https://images.unsplash.com/photo-1509395176047-4a66953fd231", "stock", "90"),
-                Map.of("sku", "FB-BIKE-ALP", "name", "Alpine Pro", "price", "1699.00", "description", "Alloy, 1x11, hydraulic brakes.", "image", "https://images.unsplash.com/photo-1460353581641-37baddab0fa2", "stock", "10"),
-                Map.of("sku", "FB-BIKE-SNW", "name", "Snow Runner", "price", "1899.00", "description", "Carbon fork, 1x12.", "image", "https://images.unsplash.com/photo-1517646287474-0e9c3e9aa5d6", "stock", "8"),
-                Map.of("sku", "FB-BIKE-DST", "name", "Desert Storm", "price", "1649.00", "description", "Sand-tuned tires, alloy.", "image", "https://images.unsplash.com/photo-1482192596544-9eb780fc7f66", "stock", "12"),
-                Map.of("sku", "FB-BIKE-URB", "name", "Urban Commute", "price", "1299.00", "description", "Rack/mudguards, lights.", "image", "https://images.unsplash.com/photo-1485965120184-e220f721d03e", "stock", "15"),
-                Map.of("sku", "FB-BIKE-TRK", "name", "Trail King", "price", "2099.00", "description", "Carbon frame, dropper.", "image", "https://images.unsplash.com/photo-1517646287710-8c6d6d6d0312", "stock", "7")
-        );
+   private void createProducts() {
+       List<Map<String, String>> products = List.of(
+    Map.of("sku", "GPU-RTX4070", "name", "NVIDIA GeForce RTX 4070 12GB", "price", "679.00",
+           "description", "Ray tracing, DLSS 3, 12GB GDDR6X. Ideal for 1440p gaming.",
+           "image", "https://raw.githubusercontent.com/salahooo/Images/main/GPU-RTX4070%20%E2%80%94%20NVIDIA%20GeForce%20RTX%204070%2012GB.jpg",
+           "stock", "15"),
+    Map.of("sku", "GPU-RX7900", "name", "AMD Radeon RX 7900 XT 20GB", "price", "799.00",
+           "description", "20GB GDDR6, RDNA3 architecture, top-tier 4K performance.",
+           "image", "https://raw.githubusercontent.com/salahooo/Images/main/GPU-RX7900%20%E2%80%94%20AMD%20Radeon%20RX%207900%20XT%2020GB.jpg",
+           "stock", "10"),
+    Map.of("sku", "CPU-I7-13700K", "name", "Intel Core i7-13700K", "price", "429.00",
+           "description", "16-core (8P + 8E), up to 5.4GHz. Excellent for gaming and productivity.",
+           "image", "https://raw.githubusercontent.com/salahooo/Images/main/CPU-I7-13700K%20%E2%80%94%20Intel%20Core%20i7-13700K.jpg",
+           "stock", "20"),
+    Map.of("sku", "CPU-R7-7800X3D", "name", "AMD Ryzen 7 7800X3D", "price", "449.00",
+           "description", "8-core 5.0GHz 3D V-Cache CPU — unmatched gaming efficiency.",
+           "image", "https://raw.githubusercontent.com/salahooo/Images/main/CPU-R7-7800X3D%20%E2%80%94%20AMD%20Ryzen%207%207800X3D.jpg",
+           "stock", "18"),
+    Map.of("sku", "MB-ASUS-B650", "name", "ASUS TUF Gaming B650-PLUS WiFi", "price", "199.00",
+           "description", "AM5 motherboard, DDR5, WiFi 6, PCIe 5.0 ready.",
+           "image", "https://raw.githubusercontent.com/salahooo/Images/main/MB-ASUS-B650%20%E2%80%94%20ASUS%20TUF%20Gaming%20B650-PLUS%20WiFi.jpg",
+           "stock", "25"),
+    Map.of("sku", "MB-MSI-Z790", "name", "MSI MAG Z790 Tomahawk WiFi", "price", "249.00",
+           "description", "Intel LGA1700, DDR5, PCIe 5.0, dual M.2 slots.",
+           "image", "https://raw.githubusercontent.com/salahooo/Images/main/MB-MSI-Z790%20%E2%80%94%20MSI%20MAG%20Z790%20Tomahawk%20WiFi.jpg",
+           "stock", "22"),
+    Map.of("sku", "RAM-DDR5-32GB", "name", "Corsair Vengeance DDR5 32GB (2x16GB) 6000MHz", "price", "159.00",
+           "description", "Dual-channel high-speed memory optimized for Intel/AMD gaming builds.",
+           "image", "https://raw.githubusercontent.com/salahooo/Images/main/RAM-DDR5-32GB%20%E2%80%94%20Corsair%20Vengeance%20DDR5%2032GB%20(2x16GB)%206000MHz.jpg",
+           "stock", "40"),
+    Map.of("sku", "RAM-DDR4-16GB", "name", "Kingston Fury Beast 16GB (2x8GB) 3600MHz", "price", "79.00",
+           "description", "Reliable DDR4 kit for budget gaming PCs.",
+           "image", "https://raw.githubusercontent.com/salahooo/Images/main/RAM-DDR4-16GB%20%E2%80%94%20Kingston%20Fury%20Beast%2016GB%20(2x8GB)%203600MHz.jpg",
+           "stock", "50"),
+    Map.of("sku", "SSD-1TB-NVME", "name", "Samsung 990 PRO 1TB NVMe SSD", "price", "139.00",
+           "description", "PCIe 4.0 SSD, blazing 7450MB/s read speed.",
+           "image", "https://raw.githubusercontent.com/salahooo/Images/main/SSD-1TB-NVME%20%E2%80%94%20Samsung%20990%20PRO%201TB%20NVMe%20SSD.jpg",
+           "stock", "35"),
+    Map.of("sku", "SSD-2TB-NVME", "name", "Crucial P5 Plus 2TB NVMe SSD", "price", "179.00",
+           "description", "2TB Gen4 NVMe storage with fast write speeds.",
+           "image", "https://raw.githubusercontent.com/salahooo/Images/main/SSD-2TB-NVME%20%E2%80%94%20Crucial%20P5%20Plus%202TB%20NVMe%20SSD.jpg",
+           "stock", "25"),
+    Map.of("sku", "CASE-LIANLI-011", "name", "Lian Li O11 Dynamic EVO", "price", "159.00",
+           "description", "Premium mid-tower case with glass panels and modular design.",
+           "image", "https://raw.githubusercontent.com/salahooo/Images/main/CASE-LIANLI-011%20%E2%80%94%20Lian%20Li%20O11%20Dynamic%20EVO.jpg",
+           "stock", "15"),
+    Map.of("sku", "CASE-NZXT-H7", "name", "NZXT H7 Flow", "price", "129.00",
+           "description", "Airflow-optimized case with minimalist design.",
+           "image", "https://raw.githubusercontent.com/salahooo/Images/main/CASE-NZXT-H7%20%E2%80%94%20NZXT%20H7%20Flow.webp",
+           "stock", "20"),
+    Map.of("sku", "PSU-750W", "name", "Corsair RM750e 750W 80+ Gold", "price", "119.00",
+           "description", "Fully modular PSU with silent fan and Japanese capacitors.",
+           "image", "https://raw.githubusercontent.com/salahooo/Images/main/PSU-750W%20%E2%80%94%20Corsair%20RM750e%20750W%2080+%20Gold.jpg",
+           "stock", "30"),
+    Map.of("sku", "PSU-850W", "name", "Seasonic Focus GX-850 80+ Gold", "price", "139.00",
+           "description", "High-efficiency PSU perfect for RTX 40-series builds.",
+           "image", "https://raw.githubusercontent.com/salahooo/Images/main/PSU-850W%20%E2%80%94%20Seasonic%20Focus%20GX-850%2080+%20Gold.jpg",
+           "stock", "25"),
+    Map.of("sku", "COOLER-NOCTUA", "name", "Noctua NH-D15 Chromax Black", "price", "109.00",
+           "description", "Legendary dual-tower CPU cooler — silent and powerful.",
+           "image", "https://raw.githubusercontent.com/salahooo/Images/main/COOLER-NOCTUA%20%E2%80%94%20Noctua%20NH-D15%20Chromax%20Black.avif",
+           "stock", "20"),
+    Map.of("sku", "COOLER-LIQUID", "name", "NZXT Kraken X73 RGB 360mm", "price", "189.00",
+           "description", "AIO liquid cooler with RGB and performance monitoring.",
+           "image", "https://raw.githubusercontent.com/salahooo/Images/main/COOLER-LIQUID%20%E2%80%94%20NZXT%20Kraken%20X73%20RGB%20360mm.jpg",
+           "stock", "18"),
+    Map.of("sku", "GPU-RTX4090", "name", "NVIDIA GeForce RTX 4090 24GB", "price", "1849.00",
+           "description", "Flagship GPU with Ada Lovelace architecture — extreme performance.",
+           "image", "https://raw.githubusercontent.com/salahooo/Images/main/GPU-RTX4090%20%E2%80%94%20NVIDIA%20GeForce%20RTX%204090%2024GB.jpg",
+           "stock", "6"),
+    Map.of("sku", "MB-ASROCK-B550", "name", "ASRock B550M Steel Legend", "price", "149.00",
+           "description", "Micro-ATX AM4 board with robust power delivery and RGB headers.",
+           "image", "https://raw.githubusercontent.com/salahooo/Images/main/MB-ASROCK-B550%20%E2%80%94%20ASRock%20B550M%20Steel%20Legend.jpeg",
+           "stock", "28"),
+    Map.of("sku", "MONITOR-27", "name", "LG UltraGear 27\" 165Hz QHD", "price", "329.00",
+           "description", "27-inch QHD IPS panel with 1ms response time.",
+           "image", "https://raw.githubusercontent.com/salahooo/Images/main/MONITOR-27%20%E2%80%94%20LG%20UltraGear%2027%20165Hz%20QHD.jpg",
+           "stock", "14"),
+    Map.of("sku", "PERIPHERAL-SET", "name", "Logitech G Pro Keyboard + G502 Mouse Combo", "price", "179.00",
+           "description", "Mechanical keyboard and high-DPI gaming mouse.",
+           "image", "https://raw.githubusercontent.com/salahooo/Images/main/PERIPHERAL-SET%20%E2%80%94%20Logitech%20G%20Pro%20Keyboard%20+%20G502%20Mouse%20Combo.jpg",
+           "stock", "40")
+);
 
-        for (Map<String, String> productData : products) {
-            String sku = productData.get("sku");
-            if (productRepository.existsBySku(sku)) {
-                continue;
-            }
-            Product product = Product.builder()
-                    .sku(sku)
-                    .name(productData.get("name"))
-                    .price(new BigDecimal(productData.get("price")))
-                    .description(productData.get("description"))
-                    .imageUrl(productData.get("image"))
-                    .stock(Integer.parseInt(productData.get("stock")))
-                    .createdAt(OffsetDateTime.now())
-                    .build();
-            productRepository.save(product);
+
+
+    for (Map<String, String> productData : products) {
+        String sku = productData.get("sku");
+        if (productRepository.existsBySku(sku)) {
+            continue;
         }
+        Product product = Product.builder()
+                .sku(sku)
+                .name(productData.get("name"))
+                .price(new BigDecimal(productData.get("price")))
+                .description(productData.get("description"))
+                .imageUrl(productData.get("image"))
+                .stock(Integer.parseInt(productData.get("stock")))
+                .createdAt(OffsetDateTime.now())
+                .build();
+        productRepository.save(product);
     }
+
+    log.info("Seeded {} gaming PC products", products.size());
+
 }
 
-
+}

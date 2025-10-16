@@ -35,11 +35,27 @@
           <form [formGroup]="passwordForm" class="form-grid" (ngSubmit)="changePassword()">
             <mat-form-field appearance="fill">
               <mat-label>Current password</mat-label>
-              <input matInput type="password" formControlName="oldPassword">
+              <input matInput [type]="hideOld ? 'password' : 'text'" formControlName="oldPassword">
+              <button mat-icon-button matSuffix type="button" (click)="hideOld = !hideOld" [attr.aria-label]="hideOld ? 'Show password' : 'Hide password'">
+                <mat-icon>{{ hideOld ? 'visibility' : 'visibility_off' }}</mat-icon>
+              </button>
             </mat-form-field>
             <mat-form-field appearance="fill">
               <mat-label>New password</mat-label>
-              <input matInput type="password" formControlName="newPassword">
+              <input matInput [type]="hideNew ? 'password' : 'text'" formControlName="newPassword">
+              <button mat-icon-button matSuffix type="button" (click)="hideNew = !hideNew" [attr.aria-label]="hideNew ? 'Show password' : 'Hide password'">
+                <mat-icon>{{ hideNew ? 'visibility' : 'visibility_off' }}</mat-icon>
+              </button>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Confirm new password</mat-label>
+              <input matInput [type]="hideConfirm ? 'password' : 'text'" formControlName="confirmPassword">
+              <button mat-icon-button matSuffix type="button" (click)="hideConfirm = !hideConfirm" [attr.aria-label]="hideConfirm ? 'Show password' : 'Hide password'">
+                <mat-icon>{{ hideConfirm ? 'visibility' : 'visibility_off' }}</mat-icon>
+              </button>
+              <mat-error *ngIf="passwordForm.hasError('passwordMismatch') && passwordForm.get('confirmPassword')?.touched">
+                Passwords do not match
+              </mat-error>
             </mat-form-field>
             <button mat-raised-button color="accent" class="w-fit" [disabled]="passwordForm.invalid">Update</button>
           </form>

@@ -3,7 +3,19 @@
     <nav class="mobile-nav">
       <a mat-list-item routerLink="/" (click)="closeSidenav()">Home</a>
       <a mat-list-item routerLink="/catalog" (click)="closeSidenav()">Catalog</a>
-      <a mat-list-item routerLink="/cart" (click)="closeSidenav()">Cart</a>
+      <a
+        mat-list-item
+        routerLink="/cart"
+        (click)="closeSidenav()"
+        [matBadge]="cartCount$ | async"
+        matBadgeColor="accent"
+        [matBadgeHidden]="(cartCount$ | async) === 0"
+        matBadgeOverlap="false"
+      >
+        Cart
+      </a>
+      <a mat-list-item routerLink="/auth/login" *ngIf="!(isLoggedIn$ | async)" (click)="closeSidenav()">Login</a>
+      <a mat-list-item routerLink="/auth/register" *ngIf="!(isLoggedIn$ | async)" (click)="closeSidenav()">Register</a>
       <a mat-list-item routerLink="/profile" *ngIf="(isLoggedIn$ | async)" (click)="closeSidenav()">Profile</a>
       <a mat-list-item routerLink="/admin" *ngIf="(roles$ | async)?.includes('ROLE_ADMIN')" (click)="closeSidenav()">Admin</a>
     </nav>

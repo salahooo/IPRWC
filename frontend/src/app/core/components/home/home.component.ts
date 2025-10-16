@@ -14,29 +14,29 @@ export class HomeComponent implements OnInit {
   featured$!: Observable<Product[]>;
   // Pre-calculated stats rendered in the hero panel
   readonly heroStats = [
-    { label: 'Custom builds delivered', value: '750+' },
+    { label: 'Custom PCs delivered', value: '750+' },
     { label: 'Average service rating', value: '4.9/5' },
-    { label: 'Cities powered by our gaming builds', value: '32' }
+    { label: 'Cities served by our gaming PCs', value: '32' }
   ];
   readonly promoHighlights = [
     {
-      title: 'Back to school bundles',
-      description: 'Save on commuter upgrades when you combine racks, helmets, and power packs.',
+      title: 'Back to school PC bundles',
+      description: 'Save on study-ready desktops when you bundle CPU, RAM, and SSD.',
       cta: 'Explore bundles',
       link: '/catalog',
       theme: 'accent',
       badge: 'Limited time'
     },
     {
-      title: 'Book a workshop session',
+      title: 'Book a build session',
       description: 'Clean builds, cable management, and thermal tuning handled by certified PC technicians.',
       cta: 'Schedule service',
       link: '/profile',
       theme: 'outline'
     },
     {
-      title: 'Join the weekend ride-out',
-      description: 'Meet other riders on our Sunday morning gravel cruise through the dunes.',
+      title: 'Attend a demo day',
+      description: 'See the latest GPUs, cooling, and peripherals at our Saturday in-store demos.',
       cta: 'Reserve a spot',
       link: '/auth/register',
       theme: 'dark'
@@ -46,34 +46,34 @@ export class HomeComponent implements OnInit {
     {
       icon: 'engineering',
       title: 'Certified workshop',
-      description: 'Diagnostics, firmware updates, and custom builds finished in under 48 hours.'
+      description: 'Diagnostics, BIOS updates, and custom builds finished in under 48 hours.'
     },
     {
-      icon: 'electric_bike',
-      title: 'Testride fleet',
+      icon: 'memory',
+      title: 'In-store demos',
       description: 'Benchmark the latest GPUs and CPUs before you buy.'
     },
     {
       icon: 'bolt',
-      title: 'Power upgrades',
-      description: 'Extend your range with performance batteries, chargers, and smart controllers.'
+      title: 'Performance tuning',
+      description: 'Overclocking profiles, airflow optimization, and thermal paste service.'
     },
     {
-      icon: 'volunteer_activism',
-      title: 'Rider support',
-      description: 'Personal fitting sessions and ride-ready checklists tailored to your terrain.'
+      icon: 'support_agent',
+      title: 'Build support',
+      description: 'One-on-one consultations and compatibility checks for your parts list.'
     }
   ];
   readonly reasons = [
     {
       icon: 'workspace_premium',
       title: '2-year warranty',
-      description: 'Coverage on frames, motors, and electronics for total peace of mind.'
+      description: 'Coverage on custom builds; components per manufacturer terms.'
     },
     {
       icon: 'local_shipping',
       title: 'Same-week delivery',
-      description: 'We hand deliver fully assembled bikes across the Netherlands.'
+      description: 'We deliver fully built PCs across the Netherlands.'
     },
     {
       icon: 'support_agent',
@@ -89,7 +89,7 @@ export class HomeComponent implements OnInit {
   readonly newsletterPerks = [
     'Early access to limited drops',
     'Maintenance reminders & tips',
-    'Invites to demo days and ride-outs'
+    'Invites to demo days and build clinics'
   ];
   // Sanitised Google Maps iframe URL so Angular treats it as safe
   readonly mapEmbedUrl: SafeResourceUrl;

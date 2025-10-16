@@ -79,13 +79,20 @@
   letter-spacing: 0.03em;
 }
 
+
+/* Keep the actions cell as a proper table-cell to preserve alignment */
 .actions {
-  display: inline-flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 0.65rem;
+  display: table-cell;
+  text-align: right;
+  vertical-align: middle;
   min-width: 200px;
   margin-top: 0;
+  white-space: nowrap;
+}
+
+/* Space the action buttons inside the cell */
+.actions > * + * {
+  margin-left: 0.65rem;
 }
 
 .actions button {

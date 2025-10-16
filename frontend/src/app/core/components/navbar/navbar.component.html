@@ -5,14 +5,24 @@
     </button>
     <a routerLink="/" class="logo text-xl font-semibold tracking-wide text-white">Gaming Computer Parts Store</a>
     <span class="flex-1"></span>
-    <nav class="hidden md:flex items-center space-x-4">
+    <nav class="hidden md:flex items-center space-x-6">
       <a mat-button routerLink="/" routerLinkActive="active">Home</a>
       <a mat-button routerLink="/catalog" routerLinkActive="active">Catalog</a>
-      <a mat-button routerLink="/cart" routerLinkActive="active">Cart</a>
+      <a
+        mat-button
+        routerLink="/cart"
+        routerLinkActive="active"
+        [matBadge]="cartCount$ | async"
+        matBadgeColor="accent"
+        [matBadgeHidden]="(cartCount$ | async) === 0"
+        matBadgeOverlap="false"
+      >
+        Cart
+      </a>
       <a mat-button routerLink="/profile" *ngIf="(isLoggedIn$ | async)" routerLinkActive="active">Profile</a>
       <a mat-button routerLink="/admin" *ngIf="(roles$ | async)?.includes('ROLE_ADMIN')" routerLinkActive="active">Admin</a>
     </nav>
-    <div class="hidden md:flex items-center space-x-2">
+    <div class="hidden md:flex items-center space-x-2 ml-8">
       <ng-container *ngIf="(isLoggedIn$ | async); else loggedOut">
         <span class="text-white text-sm" *ngIf="(username$ | async) as username">Hi, {{ username }}</span>
         <button mat-stroked-button color="accent" (click)="logout()">Logout</button>

@@ -51,9 +51,14 @@
         <div><span>Estimated tax (21%)</span><span>€ {{ totals.tax | number:'1.2-2' }}</span></div>
         <div class="total"><span>Total</span><span>€ {{ totals.total | number:'1.2-2' }}</span></div>
       </div>
-      <button mat-raised-button color="accent" class="w-full mt-4" [disabled]="!items.length" (click)="checkout()">
-        Checkout
-      </button>
+      <div class="actions">
+        <button mat-stroked-button color="warn" [disabled]="!items.length" (click)="clearCart()">
+          Clear cart
+        </button>
+        <button mat-raised-button color="accent" class="ml-2" [disabled]="!items.length" (click)="checkout()">
+          Checkout
+        </button>
+      </div>
       <p class="note">Tax calculation simplified for demo purposes.</p>
     </mat-card-content>
   </mat-card>

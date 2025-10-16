@@ -1,6 +1,7 @@
 package com.pcparts.shop.service;
 
 import com.pcparts.shop.dto.user.ChangePasswordRequest;
+import com.pcparts.shop.dto.user.AdminResetPasswordRequest;
 import com.pcparts.shop.dto.user.UpdateUserRequest;
 import com.pcparts.shop.dto.user.UserResponse;
 import com.pcparts.shop.entity.User;
@@ -63,6 +64,13 @@ public class UserService {
             throw new ResourceNotFoundException("User not found with id: " + id);
         }
         userRepository.deleteById(id);
+    }
+
+    public void adminResetPassword(Long id, AdminResetPasswordRequest request) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+        user.setPassword(passwordEncoder.encode(request.newPassword()));
+        userRepository.save(user);
     }
 
     private User getCurrentUser() {

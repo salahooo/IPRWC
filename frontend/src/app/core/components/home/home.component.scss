@@ -4,7 +4,7 @@
 
 .hero {
   background: linear-gradient(140deg, rgba(15, 23, 42, 0.78), rgba(15, 23, 42, 0.55)),
-    url('https://images.unsplash.com/photo-1660511030382-d77a107d6536?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+    url('https://raw.githubusercontent.com/salahooo/Images/refs/heads/main/gamingpc.jpeg') center/cover no-repeat;
   color: #fff;
   border-radius: 1.5rem;
   padding: 5rem 1.5rem;
@@ -476,8 +476,16 @@
 
 .newsletter-form mat-form-field {
   width: 100%;
-  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Refine the filled input inside the dark card for clarity */
+.newsletter-form ::ng-deep .mdc-text-field--filled {
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 0.75rem;
+}
+
+.newsletter-form ::ng-deep .mdc-text-field--filled .mdc-line-ripple {
+  height: 2px;
 }
 
 @media (min-width: 960px) {

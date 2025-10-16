@@ -1,6 +1,7 @@
 package com.pcparts.shop.controller;
 
 import com.pcparts.shop.dto.user.ChangePasswordRequest;
+import com.pcparts.shop.dto.user.AdminResetPasswordRequest;
 import com.pcparts.shop.dto.user.UpdateUserRequest;
 import com.pcparts.shop.dto.user.UserResponse;
 import com.pcparts.shop.service.UserService;
@@ -59,6 +60,14 @@ public class UserController {
         // Admin cleanup of inactive/problematic accounts
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}/reset-password")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> adminResetPassword(@PathVariable Long id, @Valid @RequestBody AdminResetPasswordRequest request) {
+        // Admin ability to reset a user's password without the old password
+        userService.adminResetPassword(id, request);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
 

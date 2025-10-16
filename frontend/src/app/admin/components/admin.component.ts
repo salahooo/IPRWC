@@ -10,6 +10,7 @@ import { Order, ORDER_STATUS_OPTIONS } from '../../shared/models/order.model';
 import { UserProfile } from '../../shared/models/user.model';
 import { ProductDialogComponent } from '../dialogs/product-dialog.component';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
+import { ResetPasswordDialogComponent } from '../dialogs/reset-password-dialog.component';
 
 @Component({
   selector: 'app-admin',
@@ -141,6 +142,24 @@ export class AdminComponent implements OnInit {
       this.userService.deleteUser(user.id).subscribe(() => {
         this.users = this.users.filter(u => u.id !== user.id);
         this.snackBar.open('User deleted', undefined, { duration: 3000 });
+      });
+    });
+  }
+
+  openResetPasswordDialog(user: UserProfile): void {
+    const dialogRef = this.dialog.open(ResetPasswordDialogComponent, {
+      width: '420px',
+      data: { username: user.username }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return;
+      }
+      const newPassword: string = result.newPassword;
+      this.userService.adminResetPassword(user.id, newPassword).subscribe({
+        next: () => this.snackBar.open('Password reset', undefined, { duration: 3000 }),
+        error: error => this.snackBar.open(error.error?.message || 'Password reset failed', 'Close', { duration: 4000 })
       });
     });
   }

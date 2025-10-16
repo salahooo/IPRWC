@@ -29,4 +29,8 @@ export class UserService {
   deleteUser(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/users/${id}`);
   }
+
+  adminResetPassword(id: number, newPassword: string): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/users/${id}/reset-password`, { newPassword });
+  }
 }

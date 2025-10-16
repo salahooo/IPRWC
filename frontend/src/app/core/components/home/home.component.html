@@ -1,13 +1,13 @@
 <section class="hero">
   <div class="hero-content">
-    <p class="eyebrow">Premium gaming PC parts</p>
-    <h1>Ride beyond the pavement</h1>
+    <p class="eyebrow">Premium PC parts & builds</p>
+    <h1>Power your next PC build</h1>
     <p>
       Discover curated GPUs, CPUs, coolers, cases, and pro build expertise for peak FPS and thermals.
     </p>
     <div class="hero-actions">
       <a mat-raised-button color="accent" routerLink="/catalog">Browse catalog</a>
-      <a mat-stroked-button color="primary" routerLink="/auth/register">Book a testride</a>
+      <a mat-stroked-button color="primary" routerLink="/auth/register">Start a custom build</a>
     </div>
     <ul class="hero-stats">
       <li *ngFor="let stat of heroStats">
@@ -21,7 +21,7 @@
 <section class="page-section promo">
   <div class="section-header">
     <h2>Seasonal highlights</h2>
-    <p>Deals, meetups, and services curated by our workshop team.</p>
+    <p>Deals, events, and services curated by our build team.</p>
   </div>
   <div class="promo-grid">
     <article
@@ -44,7 +44,7 @@
 <section class="page-section">
   <div class="section-header">
     <h2>Popular builds</h2>
-    <p>Top-rated gaming builds from our workshop this week.</p>
+    <p>Top-rated gaming PCs from our build desk this week.</p>
   </div>
   <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
     <ng-container *ngIf="featured$ | async as featured">
@@ -63,8 +63,8 @@
 
 <section class="page-section services">
   <div class="section-header">
-    <h2>Workshop services</h2>
-    <p>Certified mechanics keep every ride dialled from motor to mudguard.</p>
+    <h2>Build services</h2>
+    <p>Certified technicians keep every build optimized from BIOS to airflow.</p>
   </div>
   <div class="services-grid">
     <article class="service-card" *ngFor="let service of serviceHighlights">
@@ -77,7 +77,7 @@
 
 <section class="page-section reasons">
   <div class="section-header">
-    <h2>This is why riders choose us</h2>
+    <h2>Why builders choose us</h2>
   </div>
   <div class="reasons-grid">
     <article class="reason-card" *ngFor="let reason of reasons">
@@ -90,14 +90,14 @@
 
 <section class="page-section visit">
   <div class="visit-card">
-    <h2>Drop by the workshop</h2>
+    <h2>Visit our store</h2>
     <ul>
       <li *ngFor="let info of visitDetails">
         <span class="label">{{ info.label }}</span>
         <span class="value">{{ info.value }}</span>
       </li>
     </ul>
-    <a mat-stroked-button color="accent" href="tel:+31101234567">Call the crew</a>
+    <a mat-stroked-button color="accent" href="tel:+31101234567">Call the team</a>
   </div>
   <iframe
     class="visit-map"
@@ -113,8 +113,8 @@
   <div class="newsletter-card">
     <div class="newsletter-copy">
       <p class="eyebrow">Stay in the loop</p>
-      <h2>Get workshop stories &amp; ride invites</h2>
-      <p>Monthly updates featuring limited drops, maintenance tips, and community ride-outs.</p>
+      <h2>Get build tips &amp; exclusive drops</h2>
+      <p>Monthly updates with limited drops, build guides, and performance tuning tips.</p>
       <ul class="newsletter-perks">
         <li *ngFor="let perk of newsletterPerks">
           <mat-icon>check</mat-icon>
@@ -123,7 +123,7 @@
       </ul>
     </div>
     <form class="newsletter-form">
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="fill" floatLabel="always">
         <mat-label>Email address</mat-label>
         <input matInput type="email" placeholder="you@example.com">
       </mat-form-field>
