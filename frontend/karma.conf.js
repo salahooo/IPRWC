@@ -19,7 +19,7 @@ module.exports = function (config) {
       suppressAll: true
     },
     coverageReporter: {
-      dir: join(__dirname, './coverage/fatbike-frontend'),
+      dir: join(__dirname, './coverage/pcparts-frontend'),
       subdir: '.',
       reporters: [{ type: 'html' }, { type: 'text-summary' }]
     },

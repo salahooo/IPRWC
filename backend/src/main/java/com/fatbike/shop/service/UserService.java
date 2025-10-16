@@ -33,6 +33,7 @@ public class UserService {
 
     public UserResponse updateCurrentUser(UpdateUserRequest request) {
         User user = getCurrentUser();
+        // Prevent users from hijacking an email that already belongs to another account
         if (!user.getEmail().equalsIgnoreCase(request.email()) && userRepository.existsByEmail(request.email())) {
             throw new BadRequestException("Email is already in use");
         }
@@ -43,6 +44,7 @@ public class UserService {
 
     public void changePassword(ChangePasswordRequest request) {
         User user = getCurrentUser();
+        // Require the current password to harden against CSRF or stolen sessions
         if (!passwordEncoder.matches(request.oldPassword(), user.getPassword())) {
             throw new BadRequestException("Old password is incorrect");
         }
@@ -66,6 +68,7 @@ public class UserService {
     private User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
+        // Resolve the username from the security context into the persistent user record
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found: " + username));
     }

@@ -29,6 +29,7 @@ export class CatalogListComponent implements OnInit {
 
   ngOnInit(): void {
     this.products$ = this.productService.list();
+    // Reactively filter and sort the catalog whenever any control or the source list changes
     this.filtered$ = combineLatest([
       this.products$,
       this.searchControl.valueChanges.pipe(startWith('')),
@@ -37,6 +38,7 @@ export class CatalogListComponent implements OnInit {
     ]).pipe(
       map(([products, search, sort, category]) => {
         const normalized = search?.toLowerCase() ?? '';
+        // Filter by SKU/name match first, then apply category and ordering constraints
         let result = products.filter(product =>
           product.name.toLowerCase().includes(normalized) ||
           product.sku.toLowerCase().includes(normalized)
@@ -55,11 +57,13 @@ export class CatalogListComponent implements OnInit {
   }
 
   addToCart(product: Product): void {
+    // Add a single unit and provide immediate feedback via snackbar
     this.cartService.addItem({ product, quantity: 1 });
     this.snackBar.open(`${product.name} added to cart`, undefined, { duration: 3000 });
   }
 
   trackById(_: number, product: Product): number {
+    // Keep Angular from re-rendering unchanged cards when the order shifts
     return product.id;
   }
 }

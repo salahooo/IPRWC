@@ -33,6 +33,7 @@ public class AuthService {
     private final JwtTokenProvider tokenProvider;
 
     public void register(RegisterRequest request) {
+        // Enforce unique identity constraints before attempting to persist a user
         if (userRepository.existsByUsername(request.username())) {
             throw new BadRequestException("Username is already taken");
         }
@@ -40,6 +41,7 @@ public class AuthService {
             throw new BadRequestException("Email is already in use");
         }
 
+        // Attach the default ROLE_USER so new accounts can access protected resources immediately
         Role roleUser = roleRepository.findByName(Role.RoleName.ROLE_USER)
                 .orElseThrow(() -> new BadRequestException("Default role ROLE_USER not configured"));
 
@@ -56,10 +58,12 @@ public class AuthService {
     }
 
     public LoginResponse login(LoginRequest request) {
+        // Delegate credential validation to Spring Security, which raises on failure
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.usernameOrEmail(), request.password()));
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        // Produce a signed JWT and expose the caller's roles for client-side routing decisions
         String token = tokenProvider.generateToken(userDetails);
         Set<String> roles = userDetails.getAuthorities().stream()
                 .map(authority -> authority.getAuthority())

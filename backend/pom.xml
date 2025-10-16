@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.fatbike</groupId>
-    <artifactId>fatbike-shop</artifactId>
+    <artifactId>gaming-parts-shop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>fatbike-shop</name>
-    <description>Fatbike webshop backend</description>
+    <name>gaming-parts-shop</name>
+    <description>Gaming computer parts webshop backend</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

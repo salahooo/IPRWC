@@ -1,18 +1,51 @@
 <section class="hero">
   <div class="hero-content">
-    <h1 class="text-4xl md:text-5xl font-bold mb-4">Shop Fatbikes &amp; Parts</h1>
-    <p class="text-lg md:text-xl mb-6 max-w-2xl">
-      Explore premium fatbikes and rugged components engineered for snow, sand, and everything between.
+    <p class="eyebrow">Premium gaming PC parts</p>
+    <h1>Ride beyond the pavement</h1>
+    <p>
+      Discover curated GPUs, CPUs, coolers, cases, and pro build expertise for peak FPS and thermals.
     </p>
-    <div class="space-x-3">
-      <a mat-raised-button color="accent" routerLink="/catalog">Browse Catalog</a>
-      <a mat-stroked-button color="primary" routerLink="/auth/register">Join the community</a>
+    <div class="hero-actions">
+      <a mat-raised-button color="accent" routerLink="/catalog">Browse catalog</a>
+      <a mat-stroked-button color="primary" routerLink="/auth/register">Book a testride</a>
     </div>
+    <ul class="hero-stats">
+      <li *ngFor="let stat of heroStats">
+        <span class="hero-stats__value">{{ stat.value }}</span>
+        <span class="hero-stats__label">{{ stat.label }}</span>
+      </li>
+    </ul>
   </div>
 </section>
 
-<section class="py-12">
-  <h2 class="section-title">Featured builds</h2>
+<section class="page-section promo">
+  <div class="section-header">
+    <h2>Seasonal highlights</h2>
+    <p>Deals, meetups, and services curated by our workshop team.</p>
+  </div>
+  <div class="promo-grid">
+    <article
+      *ngFor="let promo of promoHighlights"
+      class="promo-card"
+      [ngClass]="{
+        'promo-card--accent': promo.theme === 'accent',
+        'promo-card--dark': promo.theme === 'dark',
+        'promo-card--outline': promo.theme === 'outline'
+      }"
+    >
+      <span class="promo-card__badge" *ngIf="promo.badge">{{ promo.badge }}</span>
+      <h3>{{ promo.title }}</h3>
+      <p>{{ promo.description }}</p>
+      <a mat-stroked-button color="primary" [routerLink]="promo.link">{{ promo.cta }}</a>
+    </article>
+  </div>
+</section>
+
+<section class="page-section">
+  <div class="section-header">
+    <h2>Popular builds</h2>
+    <p>Top-rated gaming builds from our workshop this week.</p>
+  </div>
   <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
     <ng-container *ngIf="featured$ | async as featured">
       <article *ngFor="let product of featured" class="card">
@@ -20,10 +53,81 @@
         <div class="card-body">
           <span class="badge">{{ categoryFor(product) }}</span>
           <h3 class="card-title">{{ product.name }}</h3>
-          <p class="price">€ {{ product.price | number:'1.2-2' }}</p>
-          <button mat-stroked-button color="primary" [routerLink]="['/catalog', product.id]">View</button>
+          <p class="price">{{ product.price | currency:'EUR':'symbol-narrow' }}</p>
+          <button mat-stroked-button color="primary" [routerLink]="['/catalog', product.id]">View build</button>
         </div>
       </article>
     </ng-container>
+  </div>
+</section>
+
+<section class="page-section services">
+  <div class="section-header">
+    <h2>Workshop services</h2>
+    <p>Certified mechanics keep every ride dialled from motor to mudguard.</p>
+  </div>
+  <div class="services-grid">
+    <article class="service-card" *ngFor="let service of serviceHighlights">
+      <mat-icon>{{ service.icon }}</mat-icon>
+      <h3>{{ service.title }}</h3>
+      <p>{{ service.description }}</p>
+    </article>
+  </div>
+</section>
+
+<section class="page-section reasons">
+  <div class="section-header">
+    <h2>This is why riders choose us</h2>
+  </div>
+  <div class="reasons-grid">
+    <article class="reason-card" *ngFor="let reason of reasons">
+      <mat-icon>{{ reason.icon }}</mat-icon>
+      <h3>{{ reason.title }}</h3>
+      <p>{{ reason.description }}</p>
+    </article>
+  </div>
+</section>
+
+<section class="page-section visit">
+  <div class="visit-card">
+    <h2>Drop by the workshop</h2>
+    <ul>
+      <li *ngFor="let info of visitDetails">
+        <span class="label">{{ info.label }}</span>
+        <span class="value">{{ info.value }}</span>
+      </li>
+    </ul>
+    <a mat-stroked-button color="accent" href="tel:+31101234567">Call the crew</a>
+  </div>
+  <iframe
+    class="visit-map"
+    [src]="mapEmbedUrl"
+    title="Gaming Computer Parts Store Rotterdam map"
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    allowfullscreen
+  ></iframe>
+</section>
+
+<section class="page-section newsletter">
+  <div class="newsletter-card">
+    <div class="newsletter-copy">
+      <p class="eyebrow">Stay in the loop</p>
+      <h2>Get workshop stories &amp; ride invites</h2>
+      <p>Monthly updates featuring limited drops, maintenance tips, and community ride-outs.</p>
+      <ul class="newsletter-perks">
+        <li *ngFor="let perk of newsletterPerks">
+          <mat-icon>check</mat-icon>
+          <span>{{ perk }}</span>
+        </li>
+      </ul>
+    </div>
+    <form class="newsletter-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Email address</mat-label>
+        <input matInput type="email" placeholder="you@example.com">
+      </mat-form-field>
+      <button mat-flat-button color="primary" type="button">Notify me</button>
+    </form>
   </div>
 </section>

@@ -4,8 +4,8 @@
       <a mat-list-item routerLink="/" (click)="closeSidenav()">Home</a>
       <a mat-list-item routerLink="/catalog" (click)="closeSidenav()">Catalog</a>
       <a mat-list-item routerLink="/cart" (click)="closeSidenav()">Cart</a>
-      <a mat-list-item routerLink="/profile" (click)="closeSidenav()">Profile</a>
-      <a mat-list-item routerLink="/admin" (click)="closeSidenav()">Admin</a>
+      <a mat-list-item routerLink="/profile" *ngIf="(isLoggedIn$ | async)" (click)="closeSidenav()">Profile</a>
+      <a mat-list-item routerLink="/admin" *ngIf="(roles$ | async)?.includes('ROLE_ADMIN')" (click)="closeSidenav()">Admin</a>
     </nav>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -14,7 +14,7 @@
       <router-outlet></router-outlet>
     </main>
     <footer class="bg-slate-900 text-white py-6 text-center">
-      <p class="text-sm">&copy; {{ currentYear }} Fatbike Shop. Ride beyond.</p>
+      <p class="text-sm">&copy; {{ currentYear }} Gaming Computer Parts Store. Build beyond.</p>
     </footer>
   </mat-sidenav-content>
 </mat-sidenav-container>

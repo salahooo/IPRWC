@@ -6,9 +6,9 @@ import { UserProfile } from '../../shared/models/user.model';
 import { environment } from '../../../environments/environment';
 import { CartService } from './cart.service';
 
-const TOKEN_KEY = 'fatbike_token';
-const ROLES_KEY = 'fatbike_roles';
-const USERNAME_KEY = 'fatbike_username';
+const TOKEN_KEY = 'pcparts_token';
+const ROLES_KEY = 'pcparts_roles';
+const USERNAME_KEY = 'pcparts_username';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -18,10 +18,12 @@ export class AuthService {
   private readonly username$ = new BehaviorSubject<string | null>(localStorage.getItem(USERNAME_KEY));
 
   constructor(private readonly http: HttpClient, private readonly cartService: CartService) {
+    // Ensure the cart points at the restored user when the service boots
     this.cartService.setActiveUser(this.username$.value);
   }
 
   login(payload: LoginRequest): Observable<AuthResponse> {
+    // Persist the issued token/roles once the API confirms the login
     return this.http.post<AuthResponse>(`${this.apiUrl}/auth/login`, payload).pipe(
       tap(response => this.persistAuth(response))
     );
@@ -32,6 +34,7 @@ export class AuthService {
   }
 
   logout(): void {
+    // Drop local session data and reset any user-specific state
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(ROLES_KEY);
     localStorage.removeItem(USERNAME_KEY);
@@ -63,6 +66,7 @@ export class AuthService {
   }
 
   private persistAuth(response: AuthResponse): void {
+    // Store auth artefacts and push new values to consumers in one place
     localStorage.setItem(TOKEN_KEY, response.token);
     localStorage.setItem(ROLES_KEY, JSON.stringify(response.roles));
     localStorage.setItem(USERNAME_KEY, response.username);

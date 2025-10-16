@@ -41,15 +41,18 @@ public class OrderService {
             throw new BadRequestException("Order must contain at least one item");
         }
 
+        // Build the aggregate with the authenticated user and default status
         Order order = new Order();
         order.setUser(user);
         order.setStatus(OrderStatus.PENDING);
 
+        // Translate incoming item DTOs into persistent order items tied to the same order
         List<OrderItem> orderItems = request.items().stream()
                 .map(itemRequest -> createOrderItem(order, itemRequest))
                 .collect(Collectors.toList());
         order.setItems(orderItems);
 
+        // Snapshot the total price at purchase-time so future price changes do not affect history
         BigDecimal totalPrice = orderItems.stream()
                 .map(item -> item.getPriceAtPurchase().multiply(BigDecimal.valueOf(item.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -69,6 +72,7 @@ public class OrderService {
     public OrderResponse getOrder(Long id) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Order not found with id: " + id));
+        // Only the owner or an admin should be able to inspect a given order
         verifyAccess(order);
         return OrderMapper.toDto(order);
     }
@@ -82,6 +86,7 @@ public class OrderService {
     public OrderResponse updateStatus(Long id, UpdateOrderStatusRequest request) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Order not found with id: " + id));
+        // Admin-triggered status transitions are the only mutable part of an order
         order.setStatus(request.status());
         Order saved = orderRepository.save(order);
         return OrderMapper.toDto(saved);
@@ -90,6 +95,7 @@ public class OrderService {
     private OrderItem createOrderItem(Order order, OrderItemRequest request) {
         Product product = productRepository.findById(request.productId())
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + request.productId()));
+        // Capture the product's price at this moment to avoid later price drift
         OrderItem item = new OrderItem();
         item.setOrder(order);
         item.setProduct(product);
@@ -102,6 +108,7 @@ public class OrderService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         boolean isAdmin = authentication.getAuthorities().stream()
                 .anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
+        // Owners can see their own orders, administrators can view all
         if (!isAdmin && !order.getUser().getUsername().equals(authentication.getName())) {
             throw new AccessDeniedException("You are not authorized to view this order");
         }
@@ -109,6 +116,7 @@ public class OrderService {
 
     private User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        // Resolve the security principal to our persisted user entity
         return userRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found: " + authentication.getName()));
     }

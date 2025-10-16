@@ -28,17 +28,20 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<List<ProductResponse>> findAll() {
+        // Public catalog listing consumed by the storefront
         return ResponseEntity.ok(productService.findAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> findById(@PathVariable Long id) {
+        // Fetch a single product or surface a 404 when missing
         return ResponseEntity.ok(productService.findById(id));
     }
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProductResponse> create(@Valid @RequestBody ProductRequest request) {
+        // Admin-only endpoint to expand the catalog
         ProductResponse response = productService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -46,6 +49,7 @@ public class ProductController {
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProductResponse> update(@PathVariable Long id, @Valid @RequestBody ProductRequest request) {
+        // Maintain a product’s details while keeping SKU uniqueness intact
         ProductResponse response = productService.update(id, request);
         return ResponseEntity.ok(response);
     }
@@ -53,6 +57,7 @@ public class ProductController {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
+        // Remove a product from the catalog when it’s no longer offered
         productService.delete(id);
         return ResponseEntity.noContent().build();
     }

@@ -22,12 +22,14 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<Void> register(@Valid @RequestBody RegisterRequest request) {
+        // Delegate sign-up workflow to the service and return 201 when successful
         authService.register(request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
+        // Issue a JWT + role bundle that the client can store for subsequent calls
         LoginResponse response = authService.login(request);
         return ResponseEntity.ok(response);
     }

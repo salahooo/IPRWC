@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "fatbike-frontend": {
+    "pcparts-frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/fatbike-frontend",
+            "outputPath": "dist/pcparts-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -66,10 +66,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "fatbike-frontend:build:production"
+              "browserTarget": "pcparts-frontend:build:production"
             },
             "development": {
-              "browserTarget": "fatbike-frontend:build:development"
+              "browserTarget": "pcparts-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -77,7 +77,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "fatbike-frontend:build"
+            "browserTarget": "pcparts-frontend:build"
           }
         },
         "test": {
@@ -102,7 +102,7 @@
       }
     }
   },
-  "defaultProject": "fatbike-frontend",
+  "defaultProject": "pcparts-frontend",
   "cli": {
     "analytics": "5bd7f217-e08e-4b6f-b6ae-9553cfa6c951"
   }

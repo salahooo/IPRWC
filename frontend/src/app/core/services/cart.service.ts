@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CartItem, CartTotals } from '../../shared/models/cart.model';
 
-const CART_KEY = 'fatbike_cart';
+const CART_KEY = 'pcparts_cart';
 const TAX_RATE = 0.21;
 
 @Injectable({ providedIn: 'root' })
@@ -19,11 +19,13 @@ export class CartService {
   }
 
   setActiveUser(username: string | null): void {
+    // Namespacing the storage key lets each user keep a separate cart snapshot
     this.storageKey = username ? `${CART_KEY}_${username}` : CART_KEY;
     this.cart$.next(this.load());
   }
 
   addItem(item: CartItem): void {
+    // Merge quantities if the product already exists instead of duplicating entries
     const updated = this.cart$.value.some(existing => existing.product.id === item.product.id)
       ? this.cart$.value.map(existing =>
           existing.product.id === item.product.id
@@ -36,6 +38,7 @@ export class CartService {
   }
 
   updateQuantity(productId: number, quantity: number): void {
+    // Replace the matching line item and drop it entirely when the quantity hits zero
     const updated = this.cart$.value
       .map(item => (item.product.id === productId ? { ...item, quantity } : item))
       .filter(item => item.quantity > 0);
@@ -55,6 +58,7 @@ export class CartService {
   }
 
   totals(): CartTotals {
+    // Totals are derived on the fly to stay in sync with reactive cart updates
     const subtotal = this.cart$.value.reduce(
       (sum, item) => sum + item.product.price * item.quantity,
       0
@@ -77,6 +81,7 @@ export class CartService {
       return [];
     }
     try {
+      // Defensive parse to avoid breaking the cart when localStorage is tampered with
       return JSON.parse(raw) as CartItem[];
     } catch (error) {
       return [];

@@ -22,18 +22,21 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     public List<ProductResponse> findAll() {
+        // Eagerly map every entity to its DTO to avoid leaking JPA internals to the controller
         return productRepository.findAll().stream()
                 .map(ProductMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     public ProductResponse findById(Long id) {
+        // Fail fast when the requested product is missing so the controller can return 404
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
         return ProductMapper.toDto(product);
     }
 
     public ProductResponse create(ProductRequest request) {
+        // Only allow unique SKUs to keep the catalog searchable by SKU later on
         if (productRepository.existsBySku(request.sku())) {
             throw new BadRequestException("SKU already exists");
         }
@@ -43,8 +46,10 @@ public class ProductService {
     }
 
     public ProductResponse update(Long id, ProductRequest request) {
+        // Reuse the 404 guard so updates fail cleanly for phantom IDs
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
+        // Reject SKU changes that would collide with another existing product
         if (!product.getSku().equalsIgnoreCase(request.sku()) && productRepository.existsBySku(request.sku())) {
             throw new BadRequestException("SKU already exists");
         }
@@ -54,6 +59,7 @@ public class ProductService {
     }
 
     public void delete(Long id) {
+        // Mirror findById guard so delete follows the same 404 semantics
         if (!productRepository.existsById(id)) {
             throw new ResourceNotFoundException("Product not found with id: " + id);
         }
