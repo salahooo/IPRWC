@@ -1,8 +1,8 @@
-<section class="auth-layout">
+﻿<section class="auth-layout">
   <div class="auth-hero auth-hero--login">
     <div class="auth-hero__content">
       <span class="auth-hero__eyebrow">Welcome back</span>
-      <h1 class="auth-hero__title">Sign in to your fatbike garage</h1>
+      <h1 class="auth-hero__title">Sign in to your PC Parts garage</h1>
       <p class="auth-hero__description">
         Access your builds, track recent orders, and get tuned recommendations for your next ride.
       </p>
@@ -38,7 +38,7 @@
           <button mat-raised-button color="primary" class="submit-button" type="submit" [disabled]="form.invalid || loading">
             <mat-progress-spinner *ngIf="loading" diameter="20" mode="indeterminate"></mat-progress-spinner>
             <span *ngIf="!loading">Sign in</span>
-            <span *ngIf="loading">Signing you in�</span>
+            <span *ngIf="loading">Signing you in…</span>
           </button>
         </form>
       </mat-card-content>
@@ -50,3 +50,4 @@
     </mat-card>
   </div>
 </section>
+

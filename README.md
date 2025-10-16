@@ -1,6 +1,6 @@
-# Fatbike Webshop
+﻿# PC Parts Webshop
 
-A full-stack fatbike e-commerce platform featuring a Spring Boot REST API and Angular 18 front-end.
+A full-stack pcparts e-commerce platform featuring a Spring Boot REST API and Angular 18 front-end.
 
 ## Prerequisites
 
@@ -32,8 +32,8 @@ The SPA will be served at `http://localhost:4200`.
 
 | Role  | Username | Email                | Password  |
 |-------|----------|----------------------|-----------|
-| Admin | `admin`  | `admin@fatbike.shop` | `Admin!234` |
-| User  | `salah`  | `salah@fatbike.shop` | `User!234`  |
+| Admin | `admin`  | `admin@pcparts.shop` | `Admin!234` |
+| User  | `salah`  | `salah@pcparts.shop` | `User!234`  |
 
 ## API Highlights
 
@@ -64,3 +64,4 @@ The SPA will be served at `http://localhost:4200`.
 
 - Orders in checkout apply a flat 21% VAT as a demonstration.
 - Product images rely on Unsplash URLs; replace any broken links with valid image URLs.
+

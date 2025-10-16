@@ -1,3 +1,21 @@
 {
-    "java.compile.nullAnalysis.mode": "automatic"
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-21",
+      "path": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.8.9-hotspot",
+      "default": true
+    },
+    {
+      "name": "JavaSE-17",
+      "path": "C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.16.8-hotspot"
+    }
+  ],
+  "java.configuration.projectJdk": "JavaSE-21",
+  "terminal.integrated.env.windows": {
+    "JAVA_HOME": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.8.9-hotspot",
+    "Path": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.8.9-hotspot\\bin;${env:Path}"
+  },
+  "maven.terminal.useJavaHome": true,
+  "java.compile.nullAnalysis.mode": "automatic",
+  "java.configuration.updateBuildConfiguration": "interactive"
 }
