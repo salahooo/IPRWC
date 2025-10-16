@@ -18,6 +18,14 @@
       <a mat-list-item routerLink="/auth/register" *ngIf="!(isLoggedIn$ | async)" (click)="closeSidenav()">Register</a>
       <a mat-list-item routerLink="/profile" *ngIf="(isLoggedIn$ | async)" (click)="closeSidenav()">Profile</a>
       <a mat-list-item routerLink="/admin" *ngIf="(roles$ | async)?.includes('ROLE_ADMIN')" (click)="closeSidenav()">Admin</a>
+      <button
+        mat-list-item
+        type="button"
+        *ngIf="(isLoggedIn$ | async)"
+        (click)="logout()"
+      >
+        Logout
+      </button>
     </nav>
   </mat-sidenav>
   <mat-sidenav-content>

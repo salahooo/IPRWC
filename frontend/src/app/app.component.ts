@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { AuthService } from './core/services/auth.service';
 import { CartService } from './core/services/cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,8 @@ export class AppComponent {
 
   constructor(
     private readonly authService: AuthService,
-    private readonly cartService: CartService
+    private readonly cartService: CartService,
+    private readonly router: Router
   ) {
     this.isLoggedIn$ = this.authService.isLoggedIn();
     this.roles$ = this.authService.rolesChanges();
@@ -32,6 +34,12 @@ export class AppComponent {
 
   closeSidenav(): void {
     this.sidenavOpened = false;
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.closeSidenav();
+    this.router.navigateByUrl('/');
   }
 }
 
