@@ -1,7 +1,11 @@
 .toolbar {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 1000;
+  left: 0;
+  right: 0;
+  z-index: 1100;
+  width: 100%;
+  min-height: var(--navbar-height);
   background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 55%, #0ea5e9 100%);
   box-shadow: 0 16px 38px rgba(30, 64, 175, 0.28);
   padding: 0 clamp(0.75rem, 3vw, 2rem);
