@@ -33,11 +33,13 @@ public class AuthService {
     private final JwtTokenProvider tokenProvider;
 
     public void register(RegisterRequest request) {
+        String username = request.username().trim();
+        String email = request.email().trim();
         // Enforce unique identity constraints before attempting to persist a user
-        if (userRepository.existsByUsername(request.username())) {
+        if (userRepository.existsByUsernameIgnoreCase(username)) {
             throw new BadRequestException("Username is already taken");
         }
-        if (userRepository.existsByEmail(request.email())) {
+        if (userRepository.existsByEmailIgnoreCase(email)) {
             throw new BadRequestException("Email is already in use");
         }
 
@@ -46,8 +48,8 @@ public class AuthService {
                 .orElseThrow(() -> new BadRequestException("Default role ROLE_USER not configured"));
 
         User user = User.builder()
-                .username(request.username())
-                .email(request.email())
+                .username(username)
+                .email(email)
                 .password(passwordEncoder.encode(request.password()))
                 .fullName(request.fullName())
                 .gender(request.gender())
@@ -58,9 +60,10 @@ public class AuthService {
     }
 
     public LoginResponse login(LoginRequest request) {
+        String identifier = request.usernameOrEmail().trim();
         // Delegate credential validation to Spring Security, which raises on failure
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.usernameOrEmail(), request.password()));
+                new UsernamePasswordAuthenticationToken(identifier, request.password()));
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         // Produce a signed JWT and expose the caller's roles for client-side routing decisions

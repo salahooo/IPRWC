@@ -29,7 +29,7 @@ public final class UserMapper {
         user.setFullName(request.fullName());
         user.setGender(request.gender());
         user.setDateOfBirth(request.dateOfBirth());
-        user.setEmail(request.email());
+        user.setEmail(request.email().trim());
     }
 }
 

@@ -50,7 +50,7 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private void createUsers() {
-        if (userRepository.findByUsername("admin").isEmpty()) {
+        if (userRepository.findByUsernameIgnoreCase("admin").isEmpty()) {
             Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN).orElseThrow();
             Role userRole = roleRepository.findByName(RoleName.ROLE_USER).orElseThrow();
             User admin = User.builder()
@@ -66,7 +66,7 @@ public class DataInitializer implements CommandLineRunner {
             log.info("Seeded admin user");
         }
 
-        if (userRepository.findByUsername("salah").isEmpty()) {
+        if (userRepository.findByUsernameIgnoreCase("salah").isEmpty()) {
             Role userRole = roleRepository.findByName(RoleName.ROLE_USER).orElseThrow();
             User user = User.builder()
                     .username("salah")

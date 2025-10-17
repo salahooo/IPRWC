@@ -34,8 +34,9 @@ public class UserService {
 
     public UserResponse updateCurrentUser(UpdateUserRequest request) {
         User user = getCurrentUser();
+        String incomingEmail = request.email().trim();
         // Prevent users from hijacking an email that already belongs to another account
-        if (!user.getEmail().equalsIgnoreCase(request.email()) && userRepository.existsByEmail(request.email())) {
+        if (!user.getEmail().equalsIgnoreCase(incomingEmail) && userRepository.existsByEmailIgnoreCase(incomingEmail)) {
             throw new BadRequestException("Email is already in use");
         }
         UserMapper.updateEntity(user, request);
@@ -77,7 +78,7 @@ public class UserService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         // Resolve the username from the security context into the persistent user record
-        return userRepository.findByUsername(username)
+        return userRepository.findByUsernameIgnoreCase(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found: " + username));
     }
 }

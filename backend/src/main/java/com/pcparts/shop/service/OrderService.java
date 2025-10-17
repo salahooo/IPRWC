@@ -117,7 +117,7 @@ public class OrderService {
     private User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         // Resolve the security principal to our persisted user entity
-        return userRepository.findByUsername(authentication.getName())
+        return userRepository.findByUsernameIgnoreCase(authentication.getName())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found: " + authentication.getName()));
     }
 }
