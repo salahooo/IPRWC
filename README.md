@@ -30,10 +30,6 @@ The SPA will be served at `http://localhost:4200`.
 
 ## Seeded credentials
 
-| Role  | Username | Email                | Password  |
-|-------|----------|----------------------|-----------|
-| Admin | `admin`  | `admin@pcparts.shop` | `Admin!234` |
-| User  | `salah`  | `salah@pcparts.shop` | `User!234`  |
 
 ## API Highlights
 
