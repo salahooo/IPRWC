@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { map, Observable, switchMap } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, EMPTY, map, Observable, switchMap, throwError } from 'rxjs';
 import { ProductService } from '../../../core/services/product.service';
 import { CartService } from '../../../core/services/cart.service';
 import { Product, resolveCategory } from '../../../shared/models/product.model';
@@ -17,6 +17,7 @@ export class ProductDetailComponent implements OnInit {
 
   constructor(
     private readonly route: ActivatedRoute,
+    private readonly router: Router,
     private readonly productService: ProductService,
     private readonly cartService: CartService,
     private readonly snackBar: MatSnackBar
@@ -25,7 +26,21 @@ export class ProductDetailComponent implements OnInit {
   ngOnInit(): void {
     this.product$ = this.route.paramMap.pipe(
       map(params => Number(params.get('id'))),
-      switchMap(id => this.productService.findById(id))
+      switchMap(id => {
+        if (!Number.isInteger(id) || id <= 0) {
+          this.router.navigate(['/not-found']);
+          return EMPTY;
+        }
+        return this.productService.findById(id).pipe(
+          catchError(error => {
+            if (error.status === 404) {
+              this.router.navigate(['/not-found']);
+              return EMPTY;
+            }
+            return throwError(() => error);
+          })
+        );
+      })
     );
   }
 

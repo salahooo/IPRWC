@@ -35,8 +35,9 @@ const routes: Routes = [
     canActivate: [AuthGuard, AdminGuard],
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
   },
+  { path: 'not-found', component: NotFoundComponent },
   { path: 'forbidden', component: ForbiddenComponent },
-  { path: '**', component: NotFoundComponent }
+  { path: '**', redirectTo: 'not-found' }
 ];
 
 @NgModule({

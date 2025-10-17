@@ -53,6 +53,7 @@ public class GlobalExceptionHandler {
         return buildError(HttpStatus.BAD_REQUEST, ex.getMessage(), request.getRequestURI());
     }
 
+    @SuppressWarnings("null")
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<ApiError> handleMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpServletRequest request) {
         String supported = ex.getSupportedHttpMethods() != null && !ex.getSupportedHttpMethods().isEmpty()
