@@ -9,6 +9,7 @@ backend/mvnw*
 frontend/node_modules/
 frontend/dist/
 frontend/.angular/cache/
+docs/
 
 # General
 .DS_Store

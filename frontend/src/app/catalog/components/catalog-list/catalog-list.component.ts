@@ -19,7 +19,19 @@ export class CatalogListComponent implements OnInit {
   products$!: Observable<Product[]>;
   filtered$!: Observable<Product[]>;
 
-  categories: Array<'All' | ProductCategory> = ['All', 'Parts', 'Bikes'];
+  categories: Array<'All' | ProductCategory> = [
+    'All',
+    'CPUs',
+    'GPUs',
+    'Motherboards',
+    'Memory',
+    'Storage',
+    'Cases',
+    'Power Supplies',
+    'Cooling',
+    'Monitors',
+    'Peripherals'
+  ];
 
   constructor(
     private readonly productService: ProductService,
