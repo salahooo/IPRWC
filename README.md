@@ -59,5 +59,4 @@ The SPA will be served at `http://localhost:4200`.
 ## Notes
 
 - Orders in checkout apply a flat 21% VAT as a demonstration.
-- Product images rely on Unsplash URLs; replace any broken links with valid image URLs.
 
