@@ -17,24 +17,40 @@ export class AuthService {
   private readonly roles$ = new BehaviorSubject<string[]>(this.getStoredRoles());
   private readonly username$ = new BehaviorSubject<string | null>(localStorage.getItem(USERNAME_KEY));
 
-  constructor(private readonly http: HttpClient, private readonly cartService: CartService) {
+  constructor(
+    private readonly http: HttpClient,
+    private readonly cartService: CartService
+  ) {
     // Ensure the cart points at the restored user when the service boots
     this.cartService.setActiveUser(this.username$.value);
   }
 
+  /**
+   * Logs in a user. The backend expects "usernameOrEmail" instead of "username".
+   */
   login(payload: LoginRequest): Observable<AuthResponse> {
-    // Persist the issued token/roles once the API confirms the login
-    return this.http.post<AuthResponse>(`${this.apiUrl}/auth/login`, payload).pipe(
+    // Normalize payload key for backend compatibility
+    const body = {
+      usernameOrEmail: (payload as any).username ?? (payload as any).usernameOrEmail,
+      password: payload.password
+    };
+
+    return this.http.post<AuthResponse>(`${this.apiUrl}/auth/login`, body).pipe(
       tap(response => this.persistAuth(response))
     );
   }
 
+  /**
+   * Registers a new user
+   */
   register(payload: RegisterRequest): Observable<void> {
     return this.http.post<void>(`${this.apiUrl}/auth/register`, payload);
   }
 
+  /**
+   * Logs out the current user and clears session data
+   */
   logout(): void {
-    // Drop local session data and reset any user-specific state
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(ROLES_KEY);
     localStorage.removeItem(USERNAME_KEY);
@@ -45,14 +61,23 @@ export class AuthService {
     this.username$.next(null);
   }
 
+  /**
+   * Retrieves JWT token
+   */
   getToken(): string | null {
     return localStorage.getItem(TOKEN_KEY);
   }
 
+  /**
+   * Observable for login state
+   */
   isLoggedIn(): Observable<boolean> {
     return this.loggedIn$.asObservable();
   }
 
+  /**
+   * Role utilities
+   */
   hasRole(role: string): boolean {
     return this.roles$.value.includes(role);
   }
@@ -65,8 +90,10 @@ export class AuthService {
     return this.username$.asObservable();
   }
 
+  /**
+   * Persists authentication data
+   */
   private persistAuth(response: AuthResponse): void {
-    // Store auth artefacts and push new values to consumers in one place
     localStorage.setItem(TOKEN_KEY, response.token);
     localStorage.setItem(ROLES_KEY, JSON.stringify(response.roles));
     localStorage.setItem(USERNAME_KEY, response.username);
